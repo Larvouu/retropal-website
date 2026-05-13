@@ -1,0 +1,11 @@
+# Cloudflare Pages / Workers Builds configuration.
+#
+# This declares retropal-website as a static Pages project. Cloudflare's
+# `wrangler deploy` reads this file and deploys the contents of dist/
+# without needing extra command-line flags.
+#
+# Docs: https://developers.cloudflare.com/pages/configuration/wrangler-toml/
+
+name = "retropal-website"
+compatibility_date = "2024-09-23"
+pages_build_output_dir = "./dist"
