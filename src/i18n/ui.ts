@@ -22,7 +22,7 @@ export const LAUNCH_STATE: LaunchState = "coming-soon";
 /** Once known, this becomes the App Store URL. Until then, badge is disabled. */
 export const APP_STORE_URL: string | null = null;
 
-/** Public contact + dev email aliases. Both forward to Antoine's inbox. */
+/** Public contact + dev email aliases. Both forward to the maintainer's inbox. */
 export const SUPPORT_EMAIL = "support@retropal.fr";
 export const DEV_EMAIL = "dev@retropal.fr";
 

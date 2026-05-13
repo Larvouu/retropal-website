@@ -116,12 +116,6 @@ const proPerks = [
       </div>
 
       <div class="hero-art" aria-hidden="true">
-        <div class="hero-sticker rise rise-d4">
-          <span class="hero-sticker-top">★ Exclusive</span>
-          <span class="hero-sticker-big">№01</span>
-          <span class="hero-sticker-bot">2026</span>
-        </div>
-
         <Cartridge tilt={-4} />
 
         <div class="hero-art-grid"></div>
@@ -189,7 +183,6 @@ const proPerks = [
 
         <p class="anti-foot">
           We sell an app. We don't sell <em>you</em>.
-          <span class="anti-sign">— The editor, Antoine</span>
         </p>
       </div>
     </div>
@@ -245,9 +238,8 @@ const proPerks = [
 
       <figure class="feat-pullquote">
         <blockquote>
-          "A good emulator is one you forget about because you're too into the game."
+          "The best emulator is the one you don't notice."
         </blockquote>
-        <figcaption>— guiding principle, since 2026</figcaption>
       </figure>
     </div>
   </section>
@@ -515,34 +507,6 @@ const proPerks = [
     z-index: -1;
     mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
   }
-  .hero-sticker {
-    position: absolute;
-    top: -2%;
-    right: -4%;
-    z-index: 3;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.15rem;
-    width: 96px;
-    height: 96px;
-    border-radius: 50%;
-    background: var(--accent);
-    color: var(--paper);
-    box-shadow:
-      0 0 0 4px var(--paper),
-      0 0 0 6px var(--accent-dk),
-      6px 8px 0 rgba(81, 24, 138, 0.35);
-    transform: rotate(14deg);
-    font-family: var(--font-mono);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    text-align: center;
-  }
-  .hero-sticker-top { font-size: 0.55rem; opacity: 0.95; }
-  .hero-sticker-big { font-family: var(--font-display); font-size: 1.85rem; letter-spacing: 0.02em; line-height: 1; }
-  .hero-sticker-bot { font-size: 0.55rem; opacity: 0.9; }
   .hero-callout {
     position: absolute;
     display: inline-flex;
@@ -570,8 +534,6 @@ const proPerks = [
     .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
     .hero-art { order: -1; margin-bottom: 0.5rem; }
     .hero-callout { display: none; }
-    .hero-sticker { width: 72px; height: 72px; top: -10px; right: 4px; }
-    .hero-sticker-big { font-size: 1.4rem; }
   }
 
   /* Anti — editorial column with REJECTED stamps */

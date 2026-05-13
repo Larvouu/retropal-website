@@ -116,12 +116,6 @@ const proPerks = [
       </div>
 
       <div class="hero-art" aria-hidden="true">
-        <div class="hero-sticker rise rise-d4">
-          <span class="hero-sticker-top">★ Exclusif</span>
-          <span class="hero-sticker-big">N°01</span>
-          <span class="hero-sticker-bot">2026</span>
-        </div>
-
         <Cartridge tilt={-4} />
 
         <div class="hero-art-grid"></div>
@@ -190,7 +184,6 @@ const proPerks = [
 
         <p class="anti-foot">
           On vend une app. On ne vend pas <em>toi</em>.
-          <span class="anti-sign">— L'éditeur, Antoine</span>
         </p>
       </div>
     </div>
@@ -246,9 +239,8 @@ const proPerks = [
 
       <figure class="feat-pullquote">
         <blockquote>
-          « Un bon émulateur, c'est celui qu'on oublie tellement on est pris par le jeu. »
+          « Le meilleur émulateur, c'est celui qu'on ne remarque pas. »
         </blockquote>
-        <figcaption>— principe directeur, depuis 2026</figcaption>
       </figure>
     </div>
   </section>
@@ -567,50 +559,6 @@ const proPerks = [
     mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
   }
 
-  /* "EXCLUSIF / N°01 / 2026" sticker — top right of the cartridge */
-  .hero-sticker {
-    position: absolute;
-    top: -2%;
-    right: -4%;
-    z-index: 3;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.15rem;
-    width: 96px;
-    height: 96px;
-    border-radius: 50%;
-    background: var(--accent);
-    color: var(--paper);
-    box-shadow:
-      0 0 0 4px var(--paper),
-      0 0 0 6px var(--accent-dk),
-      6px 8px 0 rgba(81, 24, 138, 0.35);
-    transform: rotate(14deg);
-    font-family: var(--font-mono);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    text-align: center;
-  }
-
-  .hero-sticker-top {
-    font-size: 0.55rem;
-    opacity: 0.95;
-  }
-
-  .hero-sticker-big {
-    font-family: var(--font-display);
-    font-size: 1.85rem;
-    letter-spacing: 0.02em;
-    line-height: 1;
-  }
-
-  .hero-sticker-bot {
-    font-size: 0.55rem;
-    opacity: 0.9;
-  }
-
   /* Magazine callouts — text+arrow pointing at the cartridge */
   .hero-callout {
     position: absolute;
@@ -669,15 +617,6 @@ const proPerks = [
     }
     .hero-callout {
       display: none;
-    }
-    .hero-sticker {
-      width: 72px;
-      height: 72px;
-      top: -10px;
-      right: 4px;
-    }
-    .hero-sticker-big {
-      font-size: 1.4rem;
     }
   }
 
