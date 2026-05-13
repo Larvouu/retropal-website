@@ -146,34 +146,51 @@ const proPerks = [
   </section>
 
   {/* ============================================================
-       Anti-feature manifesto
+       Anti-feature manifesto — editorial column with REJETÉ stamps
        ============================================================ */}
   <section class="section anti" id="anti">
+    <div class="anti-tape" aria-hidden="true"></div>
     <div class="page-shell">
-      <SectionCounter index={1} total={6} label="Notre seule promesse" />
+      <SectionCounter index={1} total={6} label="De la rédaction" />
 
       <div class="anti-grid">
-        <h2 class="display-h2 anti-head">
-          Tu achètes une fois.<br />Tu joues pour toujours.
-        </h2>
+        <div class="anti-head-wrap">
+          <h2 class="display-h2 anti-head">
+            Tu achètes une fois.<br />Tu joues pour toujours.
+          </h2>
+          <p class="anti-sub">
+            Trois choses que tu ne trouveras jamais dans Retro Pal.
+            C'est l'éditorial du mois.
+          </p>
+        </div>
 
         <ul class="anti-list" aria-label="Ce qu'il n'y a pas dans Retro Pal">
           <li class="anti-item">
-            <span class="anti-strike">Pub</span>
-            <span class="anti-note">Jamais. Pas même une bannière "non intrusive".</span>
+            <span class="anti-row">
+              <span class="anti-strike">Pub</span>
+              <span class="anti-stamp" aria-hidden="true">Rejeté</span>
+            </span>
+            <span class="anti-note">Jamais. Pas même une bannière « non intrusive ».</span>
           </li>
           <li class="anti-item">
-            <span class="anti-strike">Collecte de données</span>
+            <span class="anti-row">
+              <span class="anti-strike">Collecte de données</span>
+              <span class="anti-stamp anti-stamp-2" aria-hidden="true">Rejeté</span>
+            </span>
             <span class="anti-note">Pas d'analytics. Pas de cookies. Pas d'identifiant.</span>
           </li>
           <li class="anti-item">
-            <span class="anti-strike">Abonnement obligatoire</span>
+            <span class="anti-row">
+              <span class="anti-strike">Abonnement obligatoire</span>
+              <span class="anti-stamp anti-stamp-3" aria-hidden="true">Rejeté</span>
+            </span>
             <span class="anti-note">4,99 € une fois, à vie. L'abonnement existe, mais reste optionnel.</span>
           </li>
         </ul>
 
         <p class="anti-foot">
           On vend une app. On ne vend pas <em>toi</em>.
+          <span class="anti-sign">— L'éditeur, Antoine</span>
         </p>
       </div>
     </div>
@@ -618,25 +635,54 @@ const proPerks = [
   }
 
   /* ============================================================
-     Anti
+     Anti — editorial column with REJETÉ stamps
      ============================================================ */
   .anti {
+    position: relative;
     background: var(--paper-tint);
+  }
+
+  /* Perforated top edge to look like a tear */
+  .anti-tape {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background-image: repeating-linear-gradient(
+      to right,
+      var(--paper) 0 8px,
+      transparent 8px 12px
+    );
   }
 
   .anti-grid {
     margin-top: 2rem;
     display: grid;
-    grid-template-columns: 1.1fr 1.4fr;
-    gap: clamp(2rem, 5vw, 4rem);
+    grid-template-columns: 1fr 1.3fr;
+    gap: clamp(2rem, 5vw, 4.5rem);
     align-items: start;
+  }
+
+  .anti-head-wrap {
+    position: relative;
   }
 
   .anti-head {
     font-family: var(--font-display);
-    font-size: clamp(2rem, 3.8vw + 0.5rem, 3.25rem);
-    line-height: 1.05;
+    font-size: clamp(2.25rem, 4.2vw + 0.5rem, 3.5rem);
+    line-height: 1.02;
     color: var(--ink);
+  }
+
+  .anti-sub {
+    margin-top: 1rem;
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 1.0625rem;
+    color: var(--ink-soft);
+    max-width: 32ch;
+    line-height: 1.55;
   }
 
   .anti-list {
@@ -644,15 +690,13 @@ const proPerks = [
     margin: 0;
     padding: 0;
     display: grid;
-    gap: 1.5rem;
+    gap: 1.85rem;
   }
 
   .anti-item {
     display: grid;
-    grid-template-columns: minmax(min-content, 12rem) 1fr;
-    gap: 1.5rem;
-    align-items: baseline;
-    padding-bottom: 1.25rem;
+    gap: 0.6rem;
+    padding-bottom: 1.5rem;
     border-bottom: 1px dashed var(--rule);
   }
 
@@ -660,35 +704,103 @@ const proPerks = [
     border-bottom: none;
   }
 
+  .anti-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+
   .anti-strike {
     font-family: var(--font-display);
-    font-size: 2rem;
-    color: var(--alert-red);
+    font-size: clamp(2rem, 3vw + 0.5rem, 2.75rem);
+    color: var(--ink);
     text-decoration: line-through;
-    text-decoration-thickness: 3px;
+    text-decoration-thickness: 4px;
     text-decoration-color: var(--alert-red);
     text-decoration-skip-ink: none;
+    line-height: 1;
+  }
+
+  /* Rubber stamp: red ink "REJETÉ" with double border and rotation */
+  .anti-stamp {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--alert-red);
+    padding: 0.2rem 0.85rem;
+    border: 3px solid var(--alert-red);
+    box-shadow: inset 0 0 0 2px var(--paper-tint), inset 0 0 0 4px var(--alert-red);
+    transform: rotate(-7deg);
+    opacity: 0.88;
+    /* Faint ink-bleed effect */
+    filter: drop-shadow(0 0 0.2px rgba(217, 65, 43, 0.5));
+    position: relative;
+  }
+
+  .anti-stamp::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    background: radial-gradient(
+      circle at 30% 40%,
+      transparent 0,
+      transparent 70%,
+      rgba(217, 65, 43, 0.18) 100%
+    );
+    pointer-events: none;
+  }
+
+  .anti-stamp-2 {
+    transform: rotate(4deg);
+  }
+
+  .anti-stamp-3 {
+    transform: rotate(-3deg);
   }
 
   .anti-note {
     font-family: var(--font-body);
     font-size: 1rem;
     color: var(--ink-soft);
-    line-height: 1.5;
+    line-height: 1.55;
+    max-width: 50ch;
+    padding-left: 0.1rem;
   }
 
   .anti-foot {
     grid-column: 1 / -1;
-    margin-top: 1.5rem;
+    margin-top: 1rem;
+    padding-top: 2rem;
+    border-top: 2px solid var(--ink);
     font-family: var(--font-display);
-    font-size: 1.5rem;
+    font-size: clamp(1.5rem, 2vw + 0.5rem, 2rem);
     color: var(--ink);
     text-align: right;
+    line-height: 1.2;
+  }
+
+  .anti-foot em {
+    color: var(--accent-dk);
+    font-style: italic;
+  }
+
+  .anti-sign {
+    display: block;
+    margin-top: 0.5rem;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-weight: 400;
   }
 
   @media (max-width: 760px) {
     .anti-grid {
       grid-template-columns: 1fr;
+      gap: 2rem;
     }
     .anti-foot {
       text-align: left;
