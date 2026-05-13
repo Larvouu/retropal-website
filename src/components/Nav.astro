@@ -1,0 +1,124 @@
+---
+import type { Locale } from "../i18n/ui";
+import { getUi } from "../i18n/ui";
+import LangSwitch from "./LangSwitch.astro";
+
+export interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const ui = getUi(locale);
+
+const homeHref = locale === "fr" ? "/" : "/en";
+const supportHref = locale === "fr" ? "/support" : "/en/support";
+const featuresAnchor = `${homeHref}#features`;
+const proAnchor = `${homeHref}#pro`;
+---
+
+<header class="nav-wrap">
+  <div class="page-shell nav-inner">
+    <a href={homeHref} class="brand" aria-label="Retro Pal — accueil">
+      <span class="brand-mark" aria-hidden="true">
+        <!-- Tiny pixel mark: 3 stacked rectangles forming a stylized cartridge -->
+        <svg viewBox="0 0 16 16" width="22" height="22" fill="none">
+          <rect x="2" y="3" width="12" height="9" fill="#1A1814" />
+          <rect x="3" y="4" width="10" height="2" fill="#9BBC0F" />
+          <rect x="3" y="7" width="4" height="1" fill="#F4ECD8" />
+          <rect x="3" y="9" width="6" height="1" fill="#F4ECD8" />
+          <rect x="9" y="7" width="4" height="3" fill="#0F380F" />
+          <rect x="6" y="12" width="4" height="1" fill="#1A1814" />
+        </svg>
+      </span>
+      <span class="brand-text">Retro Pal</span>
+    </a>
+
+    <nav class="nav-links" aria-label="Navigation principale">
+      <a href={featuresAnchor}>{ui.nav.features}</a>
+      <a href={proAnchor}>{ui.nav.pro}</a>
+      <a href={supportHref}>{ui.nav.support}</a>
+    </nav>
+
+    <div class="nav-meta">
+      <LangSwitch locale={locale} />
+    </div>
+  </div>
+  <div class="dotted" aria-hidden="true"></div>
+</header>
+
+<style>
+  .nav-wrap {
+    background: var(--paper);
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    backdrop-filter: blur(6px);
+  }
+
+  .nav-inner {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1.5rem;
+    padding-block: 1rem;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    color: var(--ink);
+  }
+
+  .brand-mark {
+    width: 22px;
+    height: 22px;
+    display: inline-grid;
+    place-items: center;
+  }
+
+  .brand-text {
+    font-family: var(--font-display);
+    font-size: 1.625rem;
+    line-height: 1;
+    letter-spacing: 0.015em;
+  }
+
+  .nav-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .nav-links a {
+    color: var(--ink-soft);
+    border-bottom: 1px solid transparent;
+    padding-block-end: 2px;
+    transition: color 120ms ease, border-color 120ms ease;
+  }
+
+  .nav-links a:hover {
+    color: var(--ink);
+    border-color: var(--gb-green);
+  }
+
+  .nav-meta {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  @media (max-width: 640px) {
+    .nav-inner {
+      grid-template-columns: auto 1fr;
+    }
+    .nav-links {
+      display: none;
+    }
+  }
+</style>

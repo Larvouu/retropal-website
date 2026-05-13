@@ -1,0 +1,170 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import LegalHeader from "../../components/LegalHeader.astro";
+import { SUPPORT_EMAIL } from "../../i18n/ui";
+
+const faq = [
+  {
+    q: "How do I import ROMs into Retro Pal?",
+    a: "From the iOS Files app, pick your ROM (.gba, .gb, .gbc, .nds, or a .zip containing one) then use Share → Retro Pal. You can also open Retro Pal, tap the + button and navigate to the file. The game appears in your library immediately.",
+  },
+  {
+    q: "Where are my save files stored?",
+    a: "On your iPhone, locally, in the app's sandbox. They're automatically included in iOS iCloud backups if you have those enabled at the system level. Nothing is ever transmitted to a Retro Pal server — there is no Retro Pal server.",
+  },
+  {
+    q: "How do I sync my saves to iCloud?",
+    a: "Dedicated iCloud sync isn't available yet. It's on the roadmap for a 1.x release. In the meantime, if iOS iCloud Backup is on, your saves are included in it automatically.",
+  },
+  {
+    q: "My game won't launch, what's wrong?",
+    a: "Most commonly: ROM was extracted improperly from a .zip, corrupted file, or unsupported format (.gba.bin renamed). Try a different ROM you know works. If multiple ROMs fail, email me at " + SUPPORT_EMAIL + " with the game name, the console, and your Retro Pal version.",
+  },
+  {
+    q: "How do I cancel the monthly Pro subscription?",
+    a: "iOS Settings → your name at the top → Subscriptions → Retro Pal Pro → Cancel. You keep access until the end of the paid period. If you'd rather pay once and be done, the lifetime purchase is always available in-app at $4.99.",
+  },
+  {
+    q: "Does Retro Pal collect my data?",
+    a: "No. No personal data, no usage statistics, no unique identifier. The app runs offline. The only time data leaves your iPhone is when you actively choose to share a screenshot via Photos. See the privacy policy for the full breakdown.",
+  },
+  {
+    q: "Can I use a Bluetooth controller?",
+    a: "Controller support isn't live yet. It's planned for a 1.x release (MFi, PS, Xbox). For now, only touch controls are available — with customizable presets up to three different layouts in Pro.",
+  },
+  {
+    q: "Why doesn't rewind work on Nintendo DS?",
+    a: "NDS rewind needs more memory than the other systems (save states are bigger). It'll be added in a 1.x release with dedicated compression. In the meantime, use manual save slots — that's the closest thing.",
+  },
+  {
+    q: "Does Retro Pal support iPad / Apple TV / Mac?",
+    a: "iPhone only for now. iPad is planned for a 1.x release with adapted UI. Mac and Apple TV aren't on the near-term roadmap. If enough beta testers ask for them, that can change.",
+  },
+  {
+    q: "How do I report a bug?",
+    a: "Email " + SUPPORT_EMAIL + " with: your Retro Pal version (Settings → About), iPhone model, iOS version, the game in question, and ideally a screenshot or short video. The more specific, the faster it gets fixed.",
+  },
+];
+---
+
+<BaseLayout
+  title="Help & contact"
+  description="Got a question about Retro Pal? A short FAQ and a real email address behind which sits a real person."
+>
+  <div class="page-shell support-page">
+    <LegalHeader
+      kicker="Support"
+      title="Help & contact"
+      intro="Retro Pal is built by one person. If you can't find your answer here, write me directly. I read everything and reply same-day."
+    />
+
+    <section class="contact-block">
+      <p class="contact-eyebrow">Direct contact</p>
+      <a class="contact-email" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
+      <p class="contact-note">
+        One address, one person. No tickets, no chatbots.
+      </p>
+    </section>
+
+    <section class="faq">
+      <h2 class="faq-heading">Frequently asked questions</h2>
+
+      <div class="faq-list">
+        {faq.map((item, i) => (
+          <details class="faq-item">
+            <summary class="faq-q">
+              <span class="faq-num">{String(i + 1).padStart(2, "0")}</span>
+              <span class="faq-q-text">{item.q}</span>
+              <span class="faq-toggle" aria-hidden="true">+</span>
+            </summary>
+            <div class="faq-a">
+              <p>{item.a}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <section class="closing-note">
+      <p>
+        Question not listed?
+        <a href={`mailto:${SUPPORT_EMAIL}`}>Email {SUPPORT_EMAIL}</a>,
+        I reply personally.
+      </p>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .support-page { padding-bottom: clamp(3rem, 6vw, 5rem); }
+  .contact-block {
+    padding: 2rem clamp(1.25rem, 4vw, 2.5rem);
+    border: 2px solid var(--ink);
+    background: var(--paper-tint);
+    margin-bottom: 3rem;
+    box-shadow: 6px 6px 0 var(--gb-green-dk);
+  }
+  .contact-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.4rem;
+  }
+  .contact-email {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3.5vw + 0.5rem, 2.5rem);
+    color: var(--ink);
+    border-bottom: 2px solid var(--gb-green);
+    padding-bottom: 2px;
+    display: inline-block;
+    line-height: 1.1;
+  }
+  .contact-email:hover { background: rgba(155, 188, 15, 0.18); }
+  .contact-note { margin-top: 0.85rem; font-family: var(--font-body); font-style: italic; font-size: 0.9375rem; color: var(--ink-soft); }
+  .faq-heading {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3.5vw + 0.5rem, 2.75rem);
+    line-height: 1.05;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+  .faq-list { border-top: 1px solid var(--rule); }
+  .faq-item { border-bottom: 1px solid var(--rule); }
+  .faq-q {
+    display: grid;
+    grid-template-columns: 3rem 1fr auto;
+    gap: 1rem;
+    align-items: baseline;
+    padding: 1.25rem 0;
+    cursor: pointer;
+    list-style: none;
+  }
+  .faq-q::-webkit-details-marker { display: none; }
+  .faq-num { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.18em; color: var(--ink-faint); padding-top: 4px; }
+  .faq-q-text { font-family: var(--font-display); font-size: 1.375rem; color: var(--ink); line-height: 1.15; }
+  .faq-toggle {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--gb-green-dk);
+    line-height: 1;
+    transition: transform 200ms ease;
+  }
+  .faq-item[open] .faq-toggle { transform: rotate(45deg); }
+  .faq-a { padding: 0 0 1.5rem 4rem; max-width: 70ch; }
+  .faq-a p { font-family: var(--font-body); font-size: 1rem; line-height: 1.65; color: var(--ink); }
+  @media (max-width: 540px) {
+    .faq-q { grid-template-columns: 2.25rem 1fr auto; gap: 0.75rem; }
+    .faq-a { padding-left: 3rem; }
+  }
+  .closing-note {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px dashed var(--rule);
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    color: var(--ink-soft);
+  }
+  .closing-note a { color: var(--gb-green-dk); border-bottom: 1px solid var(--gb-green); padding-bottom: 1px; }
+</style>

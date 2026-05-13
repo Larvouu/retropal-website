@@ -1,0 +1,93 @@
+---
+export interface Props {
+  /** Visual variant of the divider */
+  variant?: "dots" | "dashes" | "blocks" | "perforated";
+  /** Optional caption rendered in the middle of the divider */
+  label?: string;
+}
+
+const { variant = "dots", label } = Astro.props;
+---
+
+<div class:list={["divider", `divider-${variant}`]} role="separator" aria-hidden={label ? undefined : "true"}>
+  {label ? (
+    <>
+      <span class="divider-line" />
+      <span class="divider-label">{label}</span>
+      <span class="divider-line" />
+    </>
+  ) : (
+    <span class="divider-line full" />
+  )}
+</div>
+
+<style>
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-block: 1.75rem;
+    color: var(--rule);
+  }
+
+  .divider-line {
+    flex: 1;
+    height: 1px;
+  }
+
+  .divider-line.full {
+    flex: 1;
+  }
+
+  .divider-dots .divider-line {
+    background-image: radial-gradient(circle, currentColor 1px, transparent 1.25px);
+    background-size: 8px 1px;
+    background-repeat: repeat-x;
+    background-position: 0 50%;
+    height: 1px;
+    color: var(--rule);
+  }
+
+  .divider-dashes .divider-line {
+    border-top: 1px dashed var(--rule);
+    height: 0;
+  }
+
+  .divider-blocks .divider-line {
+    background-image: linear-gradient(
+      to right,
+      var(--gb-green-dk) 0 25%,
+      transparent 25% 50%,
+      var(--gb-green) 50% 75%,
+      transparent 75% 100%
+    );
+    background-size: 16px 4px;
+    background-repeat: repeat-x;
+    background-position: 0 50%;
+    height: 4px;
+    image-rendering: pixelated;
+  }
+
+  .divider-perforated .divider-line {
+    background-image: repeating-linear-gradient(
+      to right,
+      var(--rule) 0 4px,
+      transparent 4px 8px,
+      var(--rule) 8px 9px,
+      transparent 9px 16px
+    );
+    background-size: 16px 1px;
+    background-repeat: repeat-x;
+    background-position: 0 50%;
+    height: 1px;
+  }
+
+  .divider-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    white-space: nowrap;
+  }
+</style>

@@ -1,0 +1,168 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import LegalHeader from "../../components/LegalHeader.astro";
+import { SUPPORT_EMAIL } from "../../i18n/ui";
+
+const lastUpdated = "Last updated: 13 May 2026";
+---
+
+<BaseLayout
+  title="Terms of Service"
+  description="Terms of service for the Retro Pal app and the retropal.fr website."
+>
+  <div class="page-shell legal-page">
+    <LegalHeader
+      kicker="Terms of Service"
+      title="Terms of use"
+      updated={lastUpdated}
+      intro="These terms govern use of the Retro Pal app and the retropal.fr site. By downloading or using the app, you accept these terms. If you do not accept them, do not use the app."
+    />
+
+    <article class="prose">
+      <h2>1. Purpose</h2>
+      <p>
+        These Terms of Service (the "Terms") set out the conditions under which any person (the
+        "User") accesses and uses the Retro Pal mobile application (the "Application") and the
+        retropal.fr website (the "Site").
+      </p>
+
+      <h2>2. Publisher</h2>
+      <p>
+        The Application and the Site are published by a French micro-enterprise whose full contact
+        details are listed on the <a href="/en/legal">Legal notice</a> page.
+      </p>
+
+      <h2>3. Description of the app</h2>
+      <p>
+        Retro Pal is a software emulator that runs, on iPhone, ROM files compatible with the Game
+        Boy, Game Boy Color, Game Boy Advance and Nintendo DS consoles. The Application uses the
+        open-source emulation cores mGBA and melonDS.
+      </p>
+      <p>
+        <strong>The Application contains no games.</strong> It does not provide, reference, or make
+        available any ROM file. The User must supply their own files.
+      </p>
+
+      <h2>4. Intellectual property</h2>
+      <p>
+        The source code specific to Retro Pal (the user interface, the integration of the emulation
+        cores, the graphics and texts of the site and app) is the exclusive property of its publisher.
+        The "Retro Pal" trademark and visual identity are protected.
+      </p>
+      <p>
+        The Application integrates open-source components whose respective licences apply. See the
+        "Third-party software" section at the bottom of this page and the
+        <a href="/en/legal">Legal notice</a> page for details.
+      </p>
+      <p>
+        Any trademark, console name, or game title mentioned on this site is the property of its
+        respective holder and is cited only descriptively, to indicate compatibility of the Application.
+      </p>
+
+      <h2>5. Use of ROM files (important)</h2>
+      <p>
+        <strong>The User is solely responsible for the legality of the ROM files they import into
+        the Application.</strong> The publisher of Retro Pal does not supply, distribute, or tolerate
+        the use of ROM files for which the User does not legitimately hold the rights.
+      </p>
+      <p>
+        Under French law, making a personal backup copy of a video game whose original physical copy
+        you legally own is subject to strict conditions. Downloading ROMs from the internet, even for
+        a game you otherwise own, may constitute counterfeiting. <strong>When in doubt, refrain.</strong>
+      </p>
+      <p>
+        The publisher disclaims any liability for the User's use of files they import, and reserves
+        the right to cooperate with competent authorities in case of a claim.
+      </p>
+
+      <h2>6. Expected User behavior</h2>
+      <p>
+        The User agrees to use the Application in accordance with its intended purpose, not to
+        attempt to decompile, disassemble, or circumvent Apple's technical protection measures, and
+        to comply with the laws applicable in their country of residence and connection.
+      </p>
+
+      <h2>7. In-app purchases</h2>
+      <p>
+        The Application offers a "Retro Pal Pro" version via two in-app purchase options, processed
+        exclusively by Apple through the App Store / StoreKit service:
+      </p>
+      <ul>
+        <li><strong>Lifetime purchase</strong>: $4.99 (indicative price, subject to variation depending on the Apple price tier), granting access to all Pro features for the lifetime of the Application.</li>
+        <li><strong>Monthly subscription</strong>: $0.99 per month, auto-renewing, granting access to the same features as long as the subscription is active.</li>
+      </ul>
+      <p>
+        Purchase management (payment, refund, subscription cancellation) is handled exclusively by
+        Apple. The App Store Terms of Service apply. For any payment-related question, see
+        <a href="https://support.apple.com/billing" rel="noopener">support.apple.com/billing</a>.
+      </p>
+      <p>
+        The monthly subscription automatically renews at the end of each period unless cancelled at
+        least 24 hours before renewal. Subscription management is done from: iOS Settings → your name → Subscriptions.
+      </p>
+
+      <h2>8. Limited warranty</h2>
+      <p>
+        The Application is provided <strong>"AS IS"</strong>, without warranty of any kind, express
+        or implied. The publisher does not warrant that the Application will be bug-free, compatible
+        with all ROM files, or continuously maintained. Compatibility with a specific game depends
+        primarily on the mGBA and melonDS emulation cores, over which the publisher of Retro Pal
+        has only limited control.
+      </p>
+
+      <h2>9. Limitation of liability</h2>
+      <p>
+        To the fullest extent permitted by applicable French law, the publisher shall not be liable
+        for any direct or indirect damages resulting from the use or inability to use the Application,
+        in particular loss of game progress, file corruption, or any damage caused to the device.
+      </p>
+      <p>
+        The User acknowledges being solely responsible for backing up their important data (in
+        particular via iOS iCloud Backup).
+      </p>
+
+      <h2>10. Third-party software (open source)</h2>
+      <p>The Application incorporates the following open-source software:</p>
+      <ul>
+        <li>
+          <strong>mGBA</strong> — Mozilla Public License 2.0 (MPL-2.0).
+          Source code: <a href="https://mgba.io" rel="noopener">mgba.io</a>.
+          Source code not modified.
+        </li>
+        <li>
+          <strong>melonDS</strong> — GNU General Public License v3.0 (GPL-3.0).
+          Source code: <a href="https://melonds.kuribo64.net" rel="noopener">melonds.kuribo64.net</a>.
+          Source code not modified.
+        </li>
+      </ul>
+      <p>
+        Full license texts are available at the URLs above and within the Application, in
+        Settings → Licenses.
+      </p>
+
+      <h2>11. Changes to these Terms</h2>
+      <p>
+        The publisher reserves the right to amend these Terms at any time. The current version is
+        always the one available at retropal.fr/en/terms, dated at the top of the page. Any
+        substantive change will be flagged to the User within the Application.
+      </p>
+
+      <h2>12. Governing law and jurisdiction</h2>
+      <p>
+        These Terms are governed by French law. Any dispute relating to their interpretation or
+        execution shall be submitted to the competent French courts, subject to applicable
+        consumer protection rules.
+      </p>
+
+      <h2>13. Contact</h2>
+      <p>
+        For any question regarding these Terms, contact
+        <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.
+      </p>
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  .legal-page { padding-bottom: clamp(3rem, 6vw, 5rem); }
+</style>

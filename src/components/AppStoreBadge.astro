@@ -1,0 +1,85 @@
+---
+import type { Locale } from "../i18n/ui";
+import { LAUNCH_STATE, APP_STORE_URL, getUi } from "../i18n/ui";
+
+export interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const ui = getUi(locale);
+
+const isLive = LAUNCH_STATE === "live" && APP_STORE_URL !== null;
+const label = isLive ? ui.cta.appStoreLive : ui.cta.appStoreSoon;
+---
+
+{isLive ? (
+  <a
+    href={APP_STORE_URL ?? "#"}
+    class="badge badge-live"
+    aria-label={label}
+    rel="noopener noreferrer"
+  >
+    <span class="badge-eyebrow">{locale === "fr" ? "Disponible sur" : "Available on"}</span>
+    <span class="badge-store">App Store</span>
+  </a>
+) : (
+  <span class="badge badge-soon" aria-disabled="true">
+    <span class="badge-eyebrow">{locale === "fr" ? "Bientôt sur" : "Coming soon to"}</span>
+    <span class="badge-store">App Store</span>
+  </span>
+)}
+
+<style>
+  .badge {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0.05rem;
+    padding: 0.65rem 1.15rem 0.7rem;
+    background: var(--ink);
+    color: var(--paper);
+    border: 2px solid var(--ink);
+    border-radius: 6px;
+    font-family: var(--font-mono);
+    line-height: 1.1;
+    box-shadow: 4px 4px 0 var(--gb-green-dk);
+    transition:
+      transform 120ms ease,
+      box-shadow 120ms ease,
+      background-color 120ms ease;
+    text-decoration: none;
+  }
+
+  .badge-live:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--gb-green-dk);
+  }
+
+  .badge-live:active {
+    transform: translate(0, 0);
+    box-shadow: 2px 2px 0 var(--gb-green-dk);
+  }
+
+  .badge-soon {
+    background: var(--paper-deep);
+    color: var(--ink-soft);
+    border-color: var(--rule);
+    box-shadow: 4px 4px 0 var(--rule);
+    cursor: not-allowed;
+  }
+
+  .badge-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+
+  .badge-store {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    letter-spacing: 0.005em;
+  }
+</style>

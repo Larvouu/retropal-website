@@ -1,0 +1,135 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import LegalHeader from "../../components/LegalHeader.astro";
+import { SUPPORT_EMAIL } from "../../i18n/ui";
+
+const lastUpdated = "Last updated: 13 May 2026";
+---
+
+<BaseLayout
+  title="Privacy Policy"
+  description="Retro Pal's privacy policy. No data collected, transmitted, or stored outside your device."
+>
+  <div class="page-shell legal-page">
+    <LegalHeader
+      kicker="Privacy Policy"
+      title="Privacy"
+      updated={lastUpdated}
+      intro="Retro Pal collects no personal data. No usage statistics, no unique identifiers, no cookies, no analytics. This page explains in detail how the app handles your data — which is to say, almost not at all."
+    />
+
+    <article class="prose">
+      <h2>1. Data controller</h2>
+      <p>
+        The publisher of Retro Pal and this site is a French micro-enterprise (auto-entrepreneur),
+        based in [CITY]. Full contact details (legal name, SIRET, address, publication director)
+        are available on the <a href="/en/legal">Legal notice</a> page.
+      </p>
+      <p>
+        For any question about your personal data, write to
+        <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.
+      </p>
+
+      <h2>2. Data collected by the app</h2>
+      <p>
+        <strong>None.</strong> Retro Pal collects no personal data, no device identifier, no usage
+        statistics, and sends no telemetry. The app is designed to run entirely offline and contains
+        no third-party analytics, advertising, or tracking SDK.
+      </p>
+      <p>Concretely, this means:</p>
+      <ul>
+        <li>No internet connection is required for the app to work.</li>
+        <li>No IP address, no advertising identifier (IDFA), no device identifier (IDFV) is read, retained or transmitted.</li>
+        <li>No event is logged (no "user opened the app", "user launched a game", etc.).</li>
+        <li>No cookies, web beacons, or tracking pixels are used, neither in the app nor on this site (the site is fully static, with no third-party scripts).</li>
+      </ul>
+
+      <h2>3. Data stored locally on your device</h2>
+      <p>
+        To work, Retro Pal stores certain data <strong>only on your iPhone</strong>, in the app's
+        sandbox:
+      </p>
+      <ul>
+        <li>The ROM files you import (which you must own legally).</li>
+        <li>Game saves (battery saves and save states).</li>
+        <li>Your preferences (language, controls, default speed, etc.).</li>
+        <li>Cumulative playtime per game, used purely for cosmetic display on share cards.</li>
+        <li>The cheat codes you enter (Pro).</li>
+      </ul>
+      <p>
+        This data never leaves your device. It is included in the iOS iCloud Backup if you have it
+        enabled at the system level, but that backup is managed by Apple, not by Retro Pal, and is
+        itself encrypted by Apple.
+      </p>
+
+      <h2>4. Cookies and similar technologies on this site</h2>
+      <p>
+        This site (retropal.fr) is fully static. It sets no cookies, uses no local storage, and
+        loads no third-party scripts (no Google Analytics, no Meta Pixel, no Hotjar, nothing).
+        No consent banner is required because no consent is required.
+      </p>
+      <p>
+        The fonts used (VT323, Newsreader, JetBrains Mono) are self-hosted on our own servers,
+        not loaded from Google Fonts or a third-party CDN. No information about your visit is
+        transmitted to a third party.
+      </p>
+
+      <h2>5. In-app purchases via the App Store</h2>
+      <p>
+        Retro Pal Pro purchases ($4.99 lifetime or $0.99 per month) are processed
+        <strong>exclusively by Apple via StoreKit</strong>. No payment information passes through
+        Retro Pal. Apple acts as the direct seller and remits a share to us per the Apple Developer
+        Program terms.
+      </p>
+      <p>
+        For billing, refund, or subscription management questions, consult Apple's privacy policy
+        and App Store help:
+        <a href="https://www.apple.com/legal/privacy/" rel="noopener">apple.com/legal/privacy</a>.
+      </p>
+
+      <h2>6. Sharing screenshots</h2>
+      <p>
+        When you use the "Share screenshot" function from the pause menu or via a system screenshot,
+        Retro Pal generates an image locally on your device. This image is shared only at the moment
+        <em>you</em> choose to share it, via the standard iOS share sheet. Sharing is then handled
+        by the app you pick (Messages, Photos, Mail, etc.), and Retro Pal has no visibility into
+        the destination or content of the share.
+      </p>
+
+      <h2>7. Your rights</h2>
+      <p>
+        Under the General Data Protection Regulation (GDPR) and applicable French data protection
+        law, you have rights of access, rectification, erasure, objection, restriction, and
+        portability concerning your personal data.
+      </p>
+      <p>
+        Since no personal data is collected or retained by Retro Pal, these rights are de facto
+        automatically respected. If you uninstall the app, all your local data is removed from
+        your device.
+      </p>
+      <p>
+        You also have the right to lodge a complaint with France's data protection authority,
+        the CNIL: <a href="https://www.cnil.fr" rel="noopener">cnil.fr</a>.
+      </p>
+
+      <h2>8. Changes to this policy</h2>
+      <p>
+        This policy may be updated if the app's functionality evolves (for example, if an opt-in
+        iCloud sync feature is added later). Any substantive change will be flagged by updating
+        the "Last updated" date at the top of this page, and via an in-app notice if the change
+        implies new data processing.
+      </p>
+
+      <h2>9. Contact</h2>
+      <p>
+        For any question, comment, or complaint regarding this privacy policy, contact
+        <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.
+      </p>
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  .legal-page { padding-bottom: clamp(3rem, 6vw, 5rem); }
+  .legal-page .prose { max-width: 68ch; margin-inline: 0; }
+</style>

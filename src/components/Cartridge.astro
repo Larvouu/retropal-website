@@ -1,0 +1,215 @@
+---
+/**
+ * Hero centerpiece: a stylized pixel-art Game Boy Advance-style cartridge with
+ * "RETRO PAL" label. Entirely inline SVG — no external assets.
+ *
+ * Sized to fill its container (preserveAspectRatio="xMidYMid meet").
+ */
+
+export interface Props {
+  /** Optional tilt in degrees applied to the wrapper */
+  tilt?: number;
+  /** Color of the cartridge plastic */
+  shellColor?: string;
+}
+
+const { tilt = -3, shellColor = "#1A1814" } = Astro.props;
+---
+
+<div class="cart-wrap" style={`--tilt: ${tilt}deg`}>
+  <div class="cart-shadow" aria-hidden="true"></div>
+  <svg
+    class="cart-svg"
+    viewBox="0 0 240 320"
+    width="240"
+    height="320"
+    role="img"
+    aria-label="Cartouche Retro Pal"
+    shape-rendering="crispEdges"
+  >
+    <!-- Outer shell: notched-top cartridge silhouette -->
+    <!-- Shell uses 8-px grid for that hand-drawn pixel feel -->
+    <defs>
+      <pattern id="halftone" width="6" height="6" patternUnits="userSpaceOnUse">
+        <circle cx="1" cy="1" r="0.75" fill="rgba(255,255,255,0.06)" />
+      </pattern>
+      <pattern id="labelGrain" width="3" height="3" patternUnits="userSpaceOnUse">
+        <rect width="3" height="3" fill="#F4ECD8" />
+        <rect x="0" y="0" width="1" height="1" fill="#E3D6B5" />
+      </pattern>
+    </defs>
+
+    <!-- Shell body (notched top) -->
+    <path
+      d={[
+        "M 24 16",
+        "L 80 16",
+        "L 80 32",
+        "L 160 32",
+        "L 160 16",
+        "L 216 16",
+        "L 216 296",
+        "L 24 296",
+        "Z",
+      ].join(" ")}
+      fill={shellColor}
+    />
+
+    <!-- Shell inner shadow (left side) -->
+    <rect x="24" y="16" width="6" height="280" fill="rgba(255,255,255,0.06)" />
+    <rect x="210" y="16" width="6" height="280" fill="rgba(0,0,0,0.25)" />
+    <rect x="24" y="290" width="192" height="6" fill="rgba(0,0,0,0.3)" />
+
+    <!-- Halftone texture on shell -->
+    <path
+      d={[
+        "M 24 16",
+        "L 80 16",
+        "L 80 32",
+        "L 160 32",
+        "L 160 16",
+        "L 216 16",
+        "L 216 296",
+        "L 24 296",
+        "Z",
+      ].join(" ")}
+      fill="url(#halftone)"
+    />
+
+    <!-- Grip ridges near top -->
+    <g fill="rgba(255,255,255,0.08)">
+      <rect x="36" y="44" width="168" height="2" />
+      <rect x="36" y="50" width="168" height="2" />
+      <rect x="36" y="56" width="168" height="2" />
+    </g>
+
+    <!-- Label paper -->
+    <rect x="40" y="76" width="160" height="200" fill="url(#labelGrain)" />
+    <rect
+      x="40"
+      y="76"
+      width="160"
+      height="200"
+      fill="none"
+      stroke="#1A1814"
+      stroke-width="2"
+    />
+
+    <!-- Label inner border (double-line magazine style) -->
+    <rect
+      x="46"
+      y="82"
+      width="148"
+      height="188"
+      fill="none"
+      stroke="#1A1814"
+      stroke-width="1"
+    />
+
+    <!-- Label top stripe -->
+    <rect x="40" y="76" width="160" height="14" fill="#0F380F" />
+
+    <!-- Label brand text -->
+    <text
+      x="120"
+      y="86"
+      text-anchor="middle"
+      font-family="VT323, monospace"
+      font-size="14"
+      fill="#9BBC0F"
+      letter-spacing="2"
+    >
+      RETRO PAL
+    </text>
+
+    <!-- Big "RP" monogram in the middle of the label -->
+    <text
+      x="120"
+      y="178"
+      text-anchor="middle"
+      font-family="VT323, monospace"
+      font-size="112"
+      fill="#0F380F"
+      letter-spacing="-2"
+    >
+      RP
+    </text>
+
+    <!-- Subtitle on the label -->
+    <text
+      x="120"
+      y="216"
+      text-anchor="middle"
+      font-family="VT323, monospace"
+      font-size="16"
+      fill="#1A1814"
+      letter-spacing="3"
+    >
+      GBA / GB / GBC / DS
+    </text>
+
+    <!-- Small star burst — "TESTÉ ★★★★★" badge -->
+    <g transform="translate(120, 246)">
+      <text
+        text-anchor="middle"
+        font-family="VT323, monospace"
+        font-size="14"
+        fill="#1A1814"
+        letter-spacing="1"
+      >
+        TESTÉ ★★★★★
+      </text>
+    </g>
+
+    <!-- Label bottom stripe -->
+    <rect x="40" y="262" width="160" height="14" fill="#9BBC0F" />
+
+    <!-- Contact pins illusion (bottom rectangles) -->
+    <g fill="rgba(0,0,0,0.4)">
+      <rect x="56" y="298" width="128" height="6" />
+    </g>
+  </svg>
+</div>
+
+<style>
+  .cart-wrap {
+    position: relative;
+    display: inline-block;
+    transform: rotate(var(--tilt, -3deg));
+    filter: drop-shadow(8px 10px 0 rgba(15, 56, 15, 0.35));
+  }
+
+  .cart-shadow {
+    position: absolute;
+    inset: 14px -10px -14px 10px;
+    background: rgba(26, 24, 20, 0.08);
+    z-index: -1;
+    border-radius: 4px;
+  }
+
+  .cart-svg {
+    display: block;
+    width: clamp(160px, 28vw, 260px);
+    height: auto;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .cart-wrap {
+      animation: cart-drop 800ms cubic-bezier(0.2, 0.7, 0.2, 1.1) both;
+    }
+
+    @keyframes cart-drop {
+      0% {
+        opacity: 0;
+        transform: translateY(-24px) rotate(calc(var(--tilt, -3deg) - 6deg));
+      }
+      60% {
+        transform: translateY(4px) rotate(calc(var(--tilt, -3deg) + 1deg));
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) rotate(var(--tilt, -3deg));
+      }
+    }
+  }
+</style>

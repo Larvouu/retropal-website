@@ -1,0 +1,155 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import LegalHeader from "../../components/LegalHeader.astro";
+import { SUPPORT_EMAIL } from "../../i18n/ui";
+
+const lastUpdated = "Last updated: 13 May 2026";
+---
+
+<BaseLayout
+  title="Legal Notice"
+  description="Legal notice for the retropal.fr site and the Retro Pal app. Publisher, host, contact, and open-source licenses."
+>
+  <div class="page-shell legal-page">
+    <LegalHeader
+      kicker="Legal Notice"
+      title="Legal notice"
+      updated={lastUpdated}
+    />
+
+    <article class="prose">
+      <h2>Publisher</h2>
+      <dl class="meta-list">
+        <dt>Trading name</dt>
+        <dd>[LEGAL_NAME] — Micro-enterprise (auto-entrepreneur, France)</dd>
+
+        <dt>SIRET</dt>
+        <dd>[SIRET]</dd>
+
+        <dt>Activity</dt>
+        <dd>Software publishing (APE code 5829C)</dd>
+
+        <dt>Address</dt>
+        <dd>[ADDRESS]<br />[POSTAL_CODE] [CITY]<br />France</dd>
+
+        <dt>Email</dt>
+        <dd><a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a></dd>
+
+        <dt>Publication director</dt>
+        <dd>[LEGAL_NAME]</dd>
+      </dl>
+
+      <h2>Host</h2>
+      <p>The retropal.fr site is hosted by:</p>
+      <dl class="meta-list">
+        <dt>Company</dt>
+        <dd>Cloudflare, Inc.</dd>
+
+        <dt>Address</dt>
+        <dd>101 Townsend Street<br />San Francisco, CA 94107<br />United States</dd>
+
+        <dt>Website</dt>
+        <dd><a href="https://www.cloudflare.com" rel="noopener">www.cloudflare.com</a></dd>
+      </dl>
+
+      <h2>Intellectual property</h2>
+      <p>
+        All elements making up the retropal.fr site and the Retro Pal application (texts, graphics,
+        logo, visual identity, specific source code) are the exclusive property of the publisher,
+        unless explicitly stated otherwise. Any reproduction, representation, modification, or
+        exploitation of all or part of these elements, by any process and on any medium, is forbidden
+        without prior written authorization from the publisher, and constitutes counterfeiting
+        punishable under articles L.335-2 et seq. of the French Intellectual Property Code.
+      </p>
+
+      <h2>Open-source software used</h2>
+      <p>
+        The Retro Pal application incorporates the following open-source components:
+      </p>
+      <ul>
+        <li>
+          <strong>mGBA</strong> — emulator for Game Boy, Game Boy Color and Game Boy Advance, under
+          the Mozilla Public License 2.0 (MPL-2.0).
+          Source code available at <a href="https://mgba.io" rel="noopener">mgba.io</a>.
+          Source code not modified.
+        </li>
+        <li>
+          <strong>melonDS</strong> — emulator for Nintendo DS, under the GNU General Public License
+          v3.0 (GPL-3.0).
+          Source code available at <a href="https://melonds.kuribo64.net" rel="noopener">melonds.kuribo64.net</a>.
+          Source code not modified.
+        </li>
+      </ul>
+      <p>
+        The application fully complies with the terms of these licenses. Complete license text is
+        available at the URLs above as well as inside the app, in Settings → Licenses.
+      </p>
+
+      <h2>Fonts</h2>
+      <p>
+        The site uses the VT323, Newsreader, and JetBrains Mono typefaces, distributed under the
+        SIL Open Font License 1.1. They are self-hosted on our own servers and do not load any
+        third-party resource.
+      </p>
+
+      <h2>Third-party trademarks</h2>
+      <p>
+        Game Boy, Game Boy Color, Game Boy Advance, and Nintendo DS are registered trademarks of
+        Nintendo Co., Ltd. Apple, App Store and iPhone are registered trademarks of Apple Inc.
+        These trademarks are mentioned on this site and in the application only descriptively, to
+        indicate technical compatibility of Retro Pal. The publisher of Retro Pal is not in any
+        way affiliated with, sponsored by, or endorsed by Nintendo or Apple.
+      </p>
+
+      <h2>Consumer mediation</h2>
+      <p>
+        In accordance with articles L.611-1 et seq. of the French Consumer Code, any consumer has
+        the right to free recourse to a consumer mediator for the amicable resolution of a dispute
+        with a professional. However, since most app-related purchases are made through the Apple
+        App Store platform, disputes relating to a purchase should first be brought to Apple via
+        <a href="https://support.apple.com/billing" rel="noopener">support.apple.com/billing</a>.
+      </p>
+
+      <h2>Personal data</h2>
+      <p>
+        The (lack of) processing of personal data is detailed in our
+        <a href="/en/privacy">Privacy policy</a>.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        For any question regarding the site, the app or this notice:
+        <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.
+      </p>
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  .legal-page { padding-bottom: clamp(3rem, 6vw, 5rem); }
+  .meta-list {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.5rem 1.5rem;
+    margin-block: 1rem 1.5rem;
+  }
+  .meta-list dt {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    padding-top: 0.3rem;
+  }
+  .meta-list dd {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--ink);
+    line-height: 1.55;
+  }
+  @media (max-width: 540px) {
+    .meta-list { grid-template-columns: 1fr; gap: 0.15rem; }
+    .meta-list dd { margin-bottom: 0.85rem; }
+  }
+</style>

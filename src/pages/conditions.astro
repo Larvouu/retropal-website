@@ -1,0 +1,175 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import LegalHeader from "../components/LegalHeader.astro";
+import { SUPPORT_EMAIL } from "../i18n/ui";
+
+const lastUpdated = "Dernière mise à jour : 13 mai 2026";
+---
+
+<BaseLayout
+  title="Conditions générales d'utilisation"
+  description="Conditions générales d'utilisation de l'application Retro Pal et du site retropal.fr."
+>
+  <div class="page-shell legal-page">
+    <LegalHeader
+      kicker="Conditions générales"
+      title="Conditions d'utilisation"
+      updated={lastUpdated}
+      intro="Ces conditions encadrent l'usage de l'application Retro Pal et du site retropal.fr. En téléchargeant ou en utilisant l'application, tu acceptes ces conditions. Si tu ne les acceptes pas, n'utilise pas l'application."
+    />
+
+    <article class="prose">
+      <h2>1. Objet</h2>
+      <p>
+        Les présentes Conditions Générales d'Utilisation (les "Conditions") ont pour objet de définir
+        les modalités selon lesquelles toute personne (l'"Utilisateur") accède à et utilise
+        l'application mobile Retro Pal (l'"Application"), ainsi que le site web retropal.fr (le "Site").
+      </p>
+
+      <h2>2. Éditeur</h2>
+      <p>
+        L'Application et le Site sont édités par une micro-entreprise française dont les coordonnées
+        complètes figurent sur la page <a href="/mentions-legales">Mentions légales</a>.
+      </p>
+
+      <h2>3. Description de l'application</h2>
+      <p>
+        Retro Pal est un émulateur logiciel qui permet d'exécuter, sur iPhone, des fichiers ROM
+        compatibles avec les consoles Game Boy, Game Boy Color, Game Boy Advance et Nintendo DS.
+        L'Application utilise les moteurs d'émulation open source mGBA et melonDS.
+      </p>
+      <p>
+        <strong>L'Application ne contient aucun jeu.</strong> Elle ne fournit, ne référence, ni ne
+        met à disposition aucun fichier ROM. L'Utilisateur doit fournir ses propres fichiers.
+      </p>
+
+      <h2>4. Propriété intellectuelle</h2>
+      <p>
+        Le code source spécifique à Retro Pal (l'interface utilisateur, l'intégration des moteurs
+        d'émulation, les graphismes et les textes du site et de l'application) est la propriété
+        exclusive de son éditeur. La marque "Retro Pal" et son identité visuelle sont protégées.
+      </p>
+      <p>
+        L'Application intègre des composants open source dont les licences respectives s'appliquent.
+        Voir la section "Logiciels tiers" en bas de cette page et la page
+        <a href="/mentions-legales">Mentions légales</a> pour le détail.
+      </p>
+      <p>
+        Toute marque, nom de console, ou titre de jeu mentionné sur ce site est la propriété de
+        ses détenteurs respectifs et n'est cité qu'à titre descriptif pour indiquer la compatibilité
+        de l'Application.
+      </p>
+
+      <h2>5. Utilisation des fichiers ROM (important)</h2>
+      <p>
+        <strong>L'Utilisateur est seul responsable de la légalité des fichiers ROM qu'il importe
+        dans l'Application.</strong> L'éditeur de Retro Pal ne fournit, ne distribue, ni ne tolère
+        l'usage de fichiers ROM dont l'Utilisateur ne possède pas légitimement les droits.
+      </p>
+      <p>
+        En droit français, la copie de sauvegarde personnelle d'un jeu vidéo dont tu possèdes
+        légalement l'exemplaire physique d'origine est soumise à des conditions strictes. Le
+        téléchargement de ROMs depuis Internet, même pour un jeu que tu possèdes par ailleurs,
+        peut constituer une contrefaçon. <strong>En cas de doute, abstiens-toi.</strong>
+      </p>
+      <p>
+        L'éditeur décline toute responsabilité concernant l'usage que l'Utilisateur fait des
+        fichiers qu'il importe, et se réserve le droit de coopérer avec les autorités compétentes
+        en cas de mise en cause.
+      </p>
+
+      <h2>6. Comportement attendu de l'Utilisateur</h2>
+      <p>
+        L'Utilisateur s'engage à utiliser l'Application conformément à sa destination, à ne pas
+        tenter de la décompiler, désassembler, ou contourner les mesures techniques de protection
+        d'Apple, et à respecter les lois en vigueur dans son pays de résidence et de connexion.
+      </p>
+
+      <h2>7. Achats intégrés</h2>
+      <p>
+        L'Application propose une version "Retro Pal Pro" via deux options d'achat intégré, traitées
+        exclusivement par Apple via le service App Store / StoreKit :
+      </p>
+      <ul>
+        <li><strong>Achat à vie</strong> : 4,99 € (montant indicatif susceptible de variation selon la zone tarifaire Apple), accordant l'accès à toutes les fonctionnalités Pro pour la durée de vie de l'Application.</li>
+        <li><strong>Abonnement mensuel</strong> : 0,99 € par mois, renouvelable automatiquement, accordant l'accès aux mêmes fonctionnalités tant que l'abonnement est actif.</li>
+      </ul>
+      <p>
+        La gestion des achats (paiement, remboursement, annulation d'abonnement) relève
+        exclusivement d'Apple. Les conditions d'utilisation de l'App Store s'appliquent. Pour toute
+        question liée à un paiement, consulte <a href="https://support.apple.com/billing" rel="noopener">support.apple.com/billing</a>.
+      </p>
+      <p>
+        L'abonnement mensuel se renouvelle automatiquement à la fin de chaque période, sauf annulation
+        au moins 24h avant l'échéance. La gestion de l'abonnement se fait depuis : Réglages iOS →
+        ton nom → Abonnements.
+      </p>
+
+      <h2>8. Garanties limitées</h2>
+      <p>
+        L'Application est fournie <strong>"en l'état" (AS-IS)</strong>, sans garantie d'aucune sorte,
+        explicite ou implicite. L'éditeur ne garantit pas que l'Application sera exempte de bugs,
+        compatible avec tous les fichiers ROM, ou continuellement maintenue. La compatibilité avec
+        un jeu spécifique dépend principalement des moteurs d'émulation mGBA et melonDS, sur lesquels
+        l'éditeur de Retro Pal n'a qu'un contrôle limité.
+      </p>
+
+      <h2>9. Limitation de responsabilité</h2>
+      <p>
+        Dans toute la mesure permise par la loi française applicable, l'éditeur ne saurait être
+        tenu responsable des dommages directs ou indirects résultant de l'utilisation ou de
+        l'impossibilité d'utiliser l'Application, en particulier la perte de progression de jeu,
+        la corruption de fichiers, ou tout dommage causé à l'appareil.
+      </p>
+      <p>
+        L'Utilisateur reconnaît être seul responsable de la sauvegarde de ses données importantes
+        (notamment via la sauvegarde iCloud iOS).
+      </p>
+
+      <h2>10. Logiciels tiers (open source)</h2>
+      <p>L'Application intègre les logiciels open source suivants :</p>
+      <ul>
+        <li>
+          <strong>mGBA</strong> — Mozilla Public License 2.0 (MPL-2.0).
+          Code source : <a href="https://mgba.io" rel="noopener">mgba.io</a>.
+          Code source non modifié.
+        </li>
+        <li>
+          <strong>melonDS</strong> — GNU General Public License v3.0 (GPL-3.0).
+          Code source : <a href="https://melonds.kuribo64.net" rel="noopener">melonds.kuribo64.net</a>.
+          Code source non modifié.
+        </li>
+      </ul>
+      <p>
+        Le texte intégral de ces licences est disponible aux URL ci-dessus et au sein de l'Application,
+        dans Réglages → Licences.
+      </p>
+
+      <h2>11. Modifications des Conditions</h2>
+      <p>
+        L'éditeur se réserve le droit de modifier les présentes Conditions à tout moment. La version
+        en vigueur est toujours celle disponible à l'adresse retropal.fr/conditions, datée en tête
+        de page. Une modification substantielle sera signalée à l'Utilisateur au sein de l'Application.
+      </p>
+
+      <h2>12. Loi applicable et juridiction</h2>
+      <p>
+        Les présentes Conditions sont régies par le droit français. Tout litige relatif à leur
+        interprétation ou à leur exécution sera soumis aux tribunaux français compétents, sous
+        réserve des règles de protection du consommateur applicables.
+      </p>
+
+      <h2>13. Contact</h2>
+      <p>
+        Pour toute question relative aux présentes Conditions, contacte
+        <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.
+      </p>
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  .legal-page {
+    padding-bottom: clamp(3rem, 6vw, 5rem);
+  }
+</style>

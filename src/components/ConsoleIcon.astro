@@ -1,0 +1,170 @@
+---
+/**
+ * Parametric pixel-art console silhouettes for the systems-supported strip.
+ * Each variant renders a small ~80x80 SVG.
+ */
+
+export type System = "gb" | "gbc" | "gba" | "nds";
+
+export interface Props {
+  system: System;
+  size?: number;
+  /** Override label shown beneath the icon */
+  label?: string;
+}
+
+const { system, size = 96, label } = Astro.props;
+
+const labels: Record<System, string> = {
+  gb: "Game Boy",
+  gbc: "Game Boy Color",
+  gba: "Game Boy Advance",
+  nds: "Nintendo DS",
+};
+
+const finalLabel = label ?? labels[system];
+---
+
+<figure class="console" style={`--icon-size: ${size}px`}>
+  <div class="console-icon">
+    {system === "gb" && (
+      <svg viewBox="0 0 64 80" width={size} height={size * 1.25} shape-rendering="crispEdges">
+        <!-- Game Boy DMG: tall, gray, square LCD -->
+        <rect x="8" y="4" width="48" height="72" fill="#8A8076" />
+        <rect x="8" y="4" width="48" height="72" fill="none" stroke="#1A1814" stroke-width="2" />
+        <!-- Screen bezel -->
+        <rect x="14" y="12" width="36" height="28" fill="#1A1814" />
+        <rect x="17" y="15" width="30" height="22" fill="#9BBC0F" />
+        <!-- "POWER" label dot above screen -->
+        <circle cx="20" cy="9" r="1.2" fill="#C8362D" />
+        <!-- D-pad -->
+        <rect x="14" y="50" width="10" height="3" fill="#1A1814" />
+        <rect x="17" y="47" width="4" height="9" fill="#1A1814" />
+        <!-- A B buttons -->
+        <circle cx="42" cy="48" r="3" fill="#C8362D" />
+        <circle cx="50" cy="52" r="3" fill="#C8362D" />
+        <!-- Select/Start -->
+        <rect x="24" y="62" width="6" height="2" fill="#1A1814" rx="1" />
+        <rect x="34" y="62" width="6" height="2" fill="#1A1814" rx="1" />
+        <!-- Speaker grill -->
+        <rect x="44" y="62" width="2" height="2" fill="#1A1814" />
+        <rect x="48" y="62" width="2" height="2" fill="#1A1814" />
+        <rect x="44" y="66" width="2" height="2" fill="#1A1814" />
+        <rect x="48" y="66" width="2" height="2" fill="#1A1814" />
+      </svg>
+    )}
+
+    {system === "gbc" && (
+      <svg viewBox="0 0 64 80" width={size} height={size * 1.25} shape-rendering="crispEdges">
+        <!-- Game Boy Color: shorter, purple, round LCD area -->
+        <rect x="8" y="6" width="48" height="68" fill="#7233D9" />
+        <rect x="8" y="6" width="48" height="68" fill="none" stroke="#1A1814" stroke-width="2" />
+        <!-- Screen bezel (rounded look) -->
+        <rect x="14" y="14" width="36" height="30" fill="#1A1814" rx="2" />
+        <rect x="17" y="17" width="30" height="24" fill="#9BBC0F" />
+        <!-- Power LED -->
+        <circle cx="18" cy="11" r="1.2" fill="#9BBC0F" />
+        <!-- D-pad -->
+        <rect x="14" y="52" width="10" height="3" fill="#1A1814" />
+        <rect x="17" y="49" width="4" height="9" fill="#1A1814" />
+        <!-- A B buttons (tilted) -->
+        <circle cx="44" cy="52" r="3" fill="#1A1814" />
+        <circle cx="50" cy="55" r="3" fill="#1A1814" />
+        <!-- Start/Select tilted -->
+        <rect x="26" y="64" width="5" height="2" fill="#1A1814" rx="1" transform="rotate(-15 28 65)" />
+        <rect x="35" y="64" width="5" height="2" fill="#1A1814" rx="1" transform="rotate(-15 37 65)" />
+      </svg>
+    )}
+
+    {system === "gba" && (
+      <svg viewBox="0 0 90 64" width={size * 1.4} height={size} shape-rendering="crispEdges">
+        <!-- GBA original: landscape, indigo, wide LCD -->
+        <rect x="4" y="10" width="82" height="44" fill="#3A2F73" />
+        <rect x="4" y="10" width="82" height="44" fill="none" stroke="#1A1814" stroke-width="2" />
+        <!-- L/R shoulder buttons (visible top edges) -->
+        <rect x="6" y="6" width="14" height="6" fill="#3A2F73" />
+        <rect x="6" y="6" width="14" height="6" fill="none" stroke="#1A1814" stroke-width="2" />
+        <rect x="70" y="6" width="14" height="6" fill="#3A2F73" />
+        <rect x="70" y="6" width="14" height="6" fill="none" stroke="#1A1814" stroke-width="2" />
+        <!-- Screen -->
+        <rect x="24" y="18" width="42" height="28" fill="#1A1814" />
+        <rect x="27" y="21" width="36" height="22" fill="#9BBC0F" />
+        <!-- D-pad -->
+        <rect x="10" y="32" width="9" height="3" fill="#1A1814" />
+        <rect x="13" y="29" width="3" height="9" fill="#1A1814" />
+        <!-- A B buttons -->
+        <circle cx="72" cy="34" r="3" fill="#C8362D" />
+        <circle cx="80" cy="30" r="3" fill="#C8362D" />
+        <!-- Start/Select -->
+        <rect x="36" y="50" width="6" height="2" fill="#1A1814" rx="1" />
+        <rect x="48" y="50" width="6" height="2" fill="#1A1814" rx="1" />
+      </svg>
+    )}
+
+    {system === "nds" && (
+      <svg viewBox="0 0 80 80" width={size} height={size} shape-rendering="crispEdges">
+        <!-- Nintendo DS Lite: clamshell, two screens stacked -->
+        <!-- Top screen half -->
+        <rect x="8" y="6" width="64" height="34" fill="#E8E2D2" />
+        <rect x="8" y="6" width="64" height="34" fill="none" stroke="#1A1814" stroke-width="2" />
+        <rect x="16" y="11" width="48" height="24" fill="#1A1814" />
+        <rect x="18" y="13" width="44" height="20" fill="#9BBC0F" />
+        <!-- Hinge -->
+        <rect x="8" y="38" width="64" height="4" fill="#1A1814" />
+        <!-- Bottom half -->
+        <rect x="8" y="42" width="64" height="32" fill="#E8E2D2" />
+        <rect x="8" y="42" width="64" height="32" fill="none" stroke="#1A1814" stroke-width="2" />
+        <!-- Bottom (touch) screen -->
+        <rect x="22" y="46" width="36" height="22" fill="#1A1814" />
+        <rect x="24" y="48" width="32" height="18" fill="#9BBC0F" />
+        <!-- D-pad -->
+        <rect x="12" y="56" width="7" height="2" fill="#1A1814" />
+        <rect x="14" y="54" width="3" height="6" fill="#1A1814" />
+        <!-- A B X Y buttons -->
+        <circle cx="62" cy="50" r="1.6" fill="#1A1814" />
+        <circle cx="66" cy="54" r="1.6" fill="#1A1814" />
+        <circle cx="62" cy="58" r="1.6" fill="#1A1814" />
+        <circle cx="58" cy="54" r="1.6" fill="#1A1814" />
+        <!-- Start/Select dots -->
+        <rect x="30" y="71" width="3" height="1" fill="#1A1814" />
+        <rect x="36" y="71" width="3" height="1" fill="#1A1814" />
+      </svg>
+    )}
+  </div>
+  <figcaption class="console-label">{finalLabel}</figcaption>
+</figure>
+
+<style>
+  .console {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+    margin: 0;
+  }
+
+  .console-icon {
+    display: grid;
+    place-items: center;
+    min-height: calc(var(--icon-size, 96px) * 1.05);
+  }
+
+  .console-icon svg {
+    height: auto;
+    filter: drop-shadow(2px 3px 0 rgba(15, 56, 15, 0.18));
+    transition: transform 200ms ease;
+  }
+
+  .console:hover .console-icon svg {
+    transform: translateY(-3px) rotate(-1deg);
+  }
+
+  .console-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-align: center;
+  }
+</style>

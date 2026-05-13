@@ -1,0 +1,181 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import LegalHeader from "../components/LegalHeader.astro";
+import { SUPPORT_EMAIL } from "../i18n/ui";
+
+const lastUpdated = "Dernière mise à jour : 13 mai 2026";
+
+/*
+ * IMPORTANT — Champs à compléter avant publication :
+ *   [NOM_LEGAL]    : prénom et nom de l'éditeur (personne physique)
+ *   [SIRET]        : numéro SIRET de la micro-entreprise
+ *   [ADRESSE]      : adresse postale de la micro-entreprise
+ *   [VILLE]        : ville de domiciliation
+ *   [CODE_POSTAL]  : code postal
+ *
+ * Ces champs sont obligatoires en France pour tout site édité par une personne
+ * exerçant à titre professionnel (LCEN, article 6-III-1).
+ */
+---
+
+<BaseLayout
+  title="Mentions légales"
+  description="Mentions légales du site retropal.fr et de l'application Retro Pal. Éditeur, hébergeur, contact, et licences open source."
+>
+  <div class="page-shell legal-page">
+    <LegalHeader
+      kicker="Mentions légales"
+      title="Mentions légales"
+      updated={lastUpdated}
+    />
+
+    <article class="prose">
+      <h2>Éditeur</h2>
+      <dl class="meta-list">
+        <dt>Raison sociale</dt>
+        <dd>[NOM_LEGAL] — Micro-entreprise (auto-entrepreneur)</dd>
+
+        <dt>SIRET</dt>
+        <dd>[SIRET]</dd>
+
+        <dt>Activité</dt>
+        <dd>Édition de logiciels applicatifs (code APE 5829C)</dd>
+
+        <dt>Adresse</dt>
+        <dd>[ADRESSE]<br />[CODE_POSTAL] [VILLE]<br />France</dd>
+
+        <dt>Email</dt>
+        <dd><a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a></dd>
+
+        <dt>Directeur de la publication</dt>
+        <dd>[NOM_LEGAL]</dd>
+      </dl>
+
+      <h2>Hébergeur</h2>
+      <p>
+        Le site retropal.fr est hébergé par :
+      </p>
+      <dl class="meta-list">
+        <dt>Société</dt>
+        <dd>Cloudflare, Inc.</dd>
+
+        <dt>Adresse</dt>
+        <dd>101 Townsend Street<br />San Francisco, CA 94107<br />États-Unis</dd>
+
+        <dt>Site web</dt>
+        <dd><a href="https://www.cloudflare.com" rel="noopener">www.cloudflare.com</a></dd>
+      </dl>
+
+      <h2>Propriété intellectuelle</h2>
+      <p>
+        L'ensemble des éléments composant le site retropal.fr et l'application Retro Pal (textes,
+        graphismes, logo, identité visuelle, code source spécifique) est la propriété exclusive
+        de l'éditeur, sauf mention contraire explicite. Toute reproduction, représentation,
+        modification, ou exploitation de tout ou partie de ces éléments, par quelque procédé
+        que ce soit et sur quelque support que ce soit, est interdite sans autorisation écrite
+        préalable de l'éditeur, et constitue une contrefaçon sanctionnée par les articles L.335-2
+        et suivants du Code de la propriété intellectuelle.
+      </p>
+
+      <h2>Logiciels open source utilisés</h2>
+      <p>
+        L'application Retro Pal intègre les composants open source suivants :
+      </p>
+      <ul>
+        <li>
+          <strong>mGBA</strong> — émulateur Game Boy, Game Boy Color et Game Boy Advance, sous licence
+          Mozilla Public License 2.0 (MPL-2.0).
+          Code source disponible sur <a href="https://mgba.io" rel="noopener">mgba.io</a>.
+          Code source non modifié.
+        </li>
+        <li>
+          <strong>melonDS</strong> — émulateur Nintendo DS, sous licence GNU General Public License
+          v3.0 (GPL-3.0).
+          Code source disponible sur <a href="https://melonds.kuribo64.net" rel="noopener">melonds.kuribo64.net</a>.
+          Code source non modifié.
+        </li>
+      </ul>
+      <p>
+        L'application respecte intégralement les termes de ces licences. Le texte complet des licences
+        est disponible aux URL ci-dessus ainsi qu'au sein de l'application, dans Réglages → Licences.
+      </p>
+
+      <h2>Polices d'écriture</h2>
+      <p>
+        Le site utilise les polices VT323, Newsreader et JetBrains Mono, distribuées sous licence
+        SIL Open Font License 1.1. Elles sont auto-hébergées depuis nos propres serveurs et ne
+        chargent aucune ressource tierce.
+      </p>
+
+      <h2>Marques tierces</h2>
+      <p>
+        Game Boy, Game Boy Color, Game Boy Advance et Nintendo DS sont des marques déposées de
+        Nintendo Co., Ltd. Apple, App Store et iPhone sont des marques déposées d'Apple Inc.
+        Ces marques sont mentionnées sur ce site et dans l'application uniquement à titre descriptif,
+        pour indiquer la compatibilité technique de Retro Pal. L'éditeur de Retro Pal n'est en aucune
+        manière affilié à, sponsorisé par, ou approuvé par Nintendo ou Apple.
+      </p>
+
+      <h2>Médiation à la consommation</h2>
+      <p>
+        Conformément aux articles L.611-1 et suivants du Code de la consommation, tout consommateur
+        a le droit de recourir gratuitement à un médiateur de la consommation en vue de la résolution
+        amiable d'un litige avec un professionnel. Toutefois, l'essentiel des achats liés à
+        l'application étant réalisés via la plateforme Apple App Store, les litiges relatifs à un
+        achat doivent en priorité être portés auprès d'Apple via <a href="https://support.apple.com/billing" rel="noopener">support.apple.com/billing</a>.
+      </p>
+
+      <h2>Données personnelles</h2>
+      <p>
+        Le traitement (ou plutôt l'absence de traitement) des données personnelles est détaillé
+        dans notre <a href="/confidentialite">Politique de confidentialité</a>.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        Pour toute question relative au site, à l'application ou à ces mentions :
+        <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.
+      </p>
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  .legal-page {
+    padding-bottom: clamp(3rem, 6vw, 5rem);
+  }
+
+  .meta-list {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.5rem 1.5rem;
+    margin-block: 1rem 1.5rem;
+  }
+
+  .meta-list dt {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    padding-top: 0.3rem;
+  }
+
+  .meta-list dd {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--ink);
+    line-height: 1.55;
+  }
+
+  @media (max-width: 540px) {
+    .meta-list {
+      grid-template-columns: 1fr;
+      gap: 0.15rem;
+    }
+    .meta-list dd {
+      margin-bottom: 0.85rem;
+    }
+  }
+</style>

@@ -1,0 +1,146 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import LegalHeader from "../components/LegalHeader.astro";
+import { SUPPORT_EMAIL } from "../i18n/ui";
+
+const lastUpdated = "Dernière mise à jour : 13 mai 2026";
+---
+
+<BaseLayout
+  title="Politique de confidentialité"
+  description="Politique de confidentialité de Retro Pal. Aucune donnée n'est collectée, transmise, ou stockée hors de votre appareil."
+>
+  <div class="page-shell legal-page">
+    <LegalHeader
+      kicker="Politique de confidentialité"
+      title="Confidentialité"
+      updated={lastUpdated}
+      intro="Retro Pal ne collecte aucune donnée personnelle. Aucune statistique d'usage, aucun identifiant unique, aucun cookie, aucune analytique. Cette page explique en détail comment l'app traite tes données — c'est-à-dire, presque pas du tout."
+    />
+
+    <article class="prose">
+      <h2>1. Responsable du traitement</h2>
+      <p>
+        L'éditeur de Retro Pal et de ce site est une micro-entreprise française, basée à
+        [VILLE]. Les coordonnées complètes (raison sociale, SIRET, adresse, directeur de la publication)
+        sont disponibles sur la page <a href="/mentions-legales">Mentions légales</a>.
+      </p>
+      <p>
+        Pour toute question relative à tes données personnelles, écris à
+        <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.
+      </p>
+
+      <h2>2. Données collectées par l'application</h2>
+      <p>
+        <strong>Aucune.</strong> Retro Pal ne collecte aucune donnée personnelle, aucun identifiant
+        d'appareil, aucune statistique d'utilisation, et n'envoie aucune télémétrie. L'application
+        est conçue pour fonctionner intégralement hors-ligne et ne contient aucun SDK d'analyse,
+        de publicité, ou de suivi tiers.
+      </p>
+      <p>
+        Concrètement, cela signifie que :
+      </p>
+      <ul>
+        <li>Aucune connexion internet n'est requise pour que l'app fonctionne.</li>
+        <li>Aucune adresse IP, aucun identifiant publicitaire (IDFA), aucun identifiant d'appareil (IDFV) n'est lu, conservé ou transmis.</li>
+        <li>Aucun "événement" n'est enregistré (pas de "l'utilisateur a ouvert l'app", "l'utilisateur a lancé un jeu", etc.).</li>
+        <li>Aucun cookie, web beacon, ou pixel de tracking n'est utilisé, ni dans l'app, ni sur ce site (le site est statique, sans script tiers).</li>
+      </ul>
+
+      <h2>3. Données stockées localement sur ton appareil</h2>
+      <p>
+        Pour fonctionner, Retro Pal stocke certaines données <strong>uniquement sur ton iPhone</strong>,
+        dans le bac à sable (sandbox) de l'application :
+      </p>
+      <ul>
+        <li>Les fichiers ROM que tu importes (que tu dois posséder légalement).</li>
+        <li>Les sauvegardes de partie (battery saves et save states).</li>
+        <li>Tes préférences (langue, contrôles, vitesse par défaut, etc.).</li>
+        <li>Le temps de jeu cumulé par jeu, à des fins purement esthétiques (affichage sur les cartes de partage).</li>
+        <li>Les codes de triche que tu saisis (Pro).</li>
+      </ul>
+      <p>
+        Ces données ne sortent jamais de ton appareil. Elles sont incluses dans la sauvegarde iCloud
+        iOS si tu l'as activée au niveau du système, mais cette sauvegarde est gérée par Apple, pas
+        par Retro Pal, et est elle-même chiffrée par Apple.
+      </p>
+
+      <h2>4. Cookies et technologies similaires sur ce site</h2>
+      <p>
+        Ce site (retropal.fr) est entièrement statique. Il ne dépose aucun cookie, n'utilise aucun
+        local storage, et ne charge aucun script tiers (pas de Google Analytics, pas de Meta Pixel,
+        pas de Hotjar, rien). Aucune bannière de consentement n'est nécessaire car aucun consentement
+        n'est requis.
+      </p>
+      <p>
+        Les polices d'écriture utilisées (VT323, Newsreader, JetBrains Mono) sont auto-hébergées
+        depuis nos propres serveurs, et non chargées depuis Google Fonts ou un CDN tiers. Aucune
+        information sur ta visite n'est transmise à un tiers.
+      </p>
+
+      <h2>5. Achats intégrés via l'App Store</h2>
+      <p>
+        Les achats Retro Pal Pro (4,99 € à vie ou 0,99 € par mois) sont traités <strong>exclusivement
+        par Apple via StoreKit</strong>. Aucune information de paiement ne transite par Retro Pal.
+        Apple agit en tant que vendeur direct et nous reverse une part selon les conditions du
+        Apple Developer Program.
+      </p>
+      <p>
+        Pour les questions relatives à la facturation, au remboursement ou à la gestion d'abonnement,
+        consulte la politique de confidentialité d'Apple et l'aide App Store :
+        <a href="https://www.apple.com/legal/privacy/fr-ww/" rel="noopener">apple.com/legal/privacy</a>.
+      </p>
+
+      <h2>6. Partage de captures d'écran</h2>
+      <p>
+        Quand tu utilises la fonction "Partager une capture" depuis le menu pause ou via une capture
+        système, Retro Pal génère une image localement sur ton appareil. Cette image n'est partagée
+        qu'au moment où <em>toi</em> tu choisis de la partager, via la feuille de partage iOS standard.
+        Le partage est ensuite géré par l'app que tu choisis (Messages, Photos, Mail, etc.), et Retro
+        Pal n'a aucune visibilité sur la destination ou le contenu envoyé.
+      </p>
+
+      <h2>7. Tes droits</h2>
+      <p>
+        En vertu du Règlement Général sur la Protection des Données (RGPD) et de la loi française
+        "Informatique et Libertés", tu disposes de droits d'accès, de rectification, d'effacement,
+        d'opposition, de limitation, et de portabilité concernant tes données personnelles.
+      </p>
+      <p>
+        Comme aucune donnée personnelle n'est collectée ni conservée par Retro Pal, ces droits sont
+        de fait automatiquement respectés. Si tu désinstalles l'application, l'intégralité de tes
+        données locales est supprimée de ton appareil.
+      </p>
+      <p>
+        Tu disposes également du droit d'introduire une réclamation auprès de la Commission Nationale
+        de l'Informatique et des Libertés (CNIL) : <a href="https://www.cnil.fr" rel="noopener">cnil.fr</a>.
+      </p>
+
+      <h2>8. Modifications de cette politique</h2>
+      <p>
+        Cette politique peut être mise à jour si la fonctionnalité de l'app évolue (par exemple,
+        si une option de synchronisation iCloud opt-in est ajoutée plus tard). Toute modification
+        substantielle sera signalée par une mise à jour du champ "Dernière mise à jour" en haut
+        de cette page, et un message dans l'app si la modification implique un nouveau traitement
+        de données.
+      </p>
+
+      <h2>9. Contact</h2>
+      <p>
+        Pour toute question, remarque ou réclamation concernant cette politique de confidentialité,
+        contacte <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.
+      </p>
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  .legal-page {
+    padding-bottom: clamp(3rem, 6vw, 5rem);
+  }
+
+  .legal-page .prose {
+    max-width: 68ch;
+    margin-inline: 0;
+  }
+</style>

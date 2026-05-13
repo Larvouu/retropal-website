@@ -1,0 +1,62 @@
+---
+import type { Locale } from "../i18n/ui";
+import { equivalentPath } from "../i18n/ui";
+
+export interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const pathname = Astro.url.pathname;
+
+const frHref = equivalentPath(pathname, "fr");
+const enHref = equivalentPath(pathname, "en");
+---
+
+<div class="lang" role="group" aria-label="Language">
+  <a
+    href={frHref}
+    aria-current={locale === "fr" ? "page" : undefined}
+    class:list={["lang-link", { active: locale === "fr" }]}
+    hreflang="fr"
+    lang="fr"
+  >
+    FR
+  </a>
+  <span class="lang-sep" aria-hidden="true">/</span>
+  <a
+    href={enHref}
+    aria-current={locale === "en" ? "page" : undefined}
+    class:list={["lang-link", { active: locale === "en" }]}
+    hreflang="en"
+    lang="en"
+  >
+    EN
+  </a>
+</div>
+
+<style>
+  .lang {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.16em;
+  }
+  .lang-link {
+    color: var(--ink-faint);
+    padding: 0.15rem 0.3rem;
+    transition: color 120ms ease;
+  }
+  .lang-link:hover {
+    color: var(--ink);
+  }
+  .lang-link.active {
+    color: var(--ink);
+    border-bottom: 1px solid var(--gb-green);
+  }
+  .lang-sep {
+    color: var(--ink-faint);
+  }
+</style>

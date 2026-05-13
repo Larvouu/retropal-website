@@ -1,0 +1,71 @@
+---
+export interface Props {
+  index: number;
+  total: number;
+  /** Short kicker label shown next to the counter, e.g. "FONCTIONNALITÉS" */
+  label?: string;
+}
+
+const { index, total, label } = Astro.props;
+const pad = (n: number) => String(n).padStart(2, "0");
+---
+
+<div class="counter">
+  <span class="counter-num">
+    <span class="counter-current">{pad(index)}</span>
+    <span class="counter-sep">/</span>
+    <span class="counter-total">{pad(total)}</span>
+  </span>
+  {label && <span class="counter-label">{label}</span>}
+</div>
+
+<style>
+  .counter {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    font-family: var(--font-mono);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .counter-num {
+    font-size: 0.7rem;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.15rem;
+  }
+
+  .counter-current {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .counter-sep {
+    color: var(--rule);
+    margin-inline: 0.05rem;
+  }
+
+  .counter-total {
+    color: var(--ink-faint);
+  }
+
+  .counter-label {
+    font-size: 0.7rem;
+    color: var(--gb-green-dk);
+    position: relative;
+    padding-left: 0.85rem;
+  }
+
+  .counter-label::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 0.5rem;
+    height: 1px;
+    background: var(--gb-green);
+    transform: translateY(-50%);
+  }
+</style>
