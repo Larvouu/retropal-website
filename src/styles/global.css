@@ -1,5 +1,5 @@
 /* ============================================================
-   Retro Pal marketing site — global styles
+   Retro Pal marketing site, global styles
    Editorial-retro aesthetic: cream paper, pixel display, serif body
    ============================================================ */
 
@@ -20,12 +20,12 @@
    Design tokens
    ============================================================ */
 :root {
-  /* Surfaces — icy cyan paper, sampled from the app icon background */
+  /* Surfaces, icy cyan paper, sampled from the app icon background */
   --paper: #dff9fb;
   --paper-tint: #c8eff2;
   --paper-deep: #b0e5ea;
 
-  /* Ink — deep indigo/navy, sits in the purple value family for harmony */
+  /* Ink, deep indigo/navy, sits in the purple value family for harmony */
   --ink: #1e1a3b;
   --ink-soft: #4a4470;
   --ink-faint: #7a748c;
@@ -34,12 +34,12 @@
   --rule: #9dbfc7;
   --rule-soft: #bbd6dc;
 
-  /* Primary accent — electric purple, sampled from the console body in the logo */
+  /* Primary accent, electric purple, sampled from the console body in the logo */
   --accent: #7625c4;
   --accent-dk: #51188a;
   --accent-glow: rgba(118, 37, 196, 0.32);
 
-  /* Game Boy LCD palette — kept for semantic decorative use only:
+  /* Game Boy LCD palette, kept for semantic decorative use only:
      console silhouettes' screens, footer pixel-stripe, cartridge top label.
      NOT used as primary accent anymore. */
   --gb-green: #9bbc0f;
@@ -303,7 +303,7 @@ button {
    Decorative patterns
    ============================================================ */
 
-/* CRT scanlines overlay — apply to a positioned ancestor */
+/* CRT scanlines overlay, apply to a positioned ancestor */
 .scanlines {
   position: relative;
   overflow: hidden;
