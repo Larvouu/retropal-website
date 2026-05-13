@@ -20,29 +20,35 @@
    Design tokens
    ============================================================ */
 :root {
-  /* Surfaces */
-  --paper: #f4ecd8;
-  --paper-tint: #ede4cc;
-  --paper-deep: #e3d6b5;
+  /* Surfaces — icy cyan paper, sampled from the app icon background */
+  --paper: #dff9fb;
+  --paper-tint: #c8eff2;
+  --paper-deep: #b0e5ea;
 
-  /* Ink */
-  --ink: #1a1814;
-  --ink-soft: #5c5752;
-  --ink-faint: #8a8076;
+  /* Ink — deep indigo/navy, sits in the purple value family for harmony */
+  --ink: #1e1a3b;
+  --ink-soft: #4a4470;
+  --ink-faint: #7a748c;
 
   /* Lines + decoration */
-  --rule: #c7b8a0;
-  --rule-soft: #d9cdb6;
+  --rule: #9dbfc7;
+  --rule-soft: #bbd6dc;
 
-  /* Accents */
+  /* Primary accent — electric purple, sampled from the console body in the logo */
+  --accent: #7625c4;
+  --accent-dk: #51188a;
+  --accent-glow: rgba(118, 37, 196, 0.32);
+
+  /* Game Boy LCD palette — kept for semantic decorative use only:
+     console silhouettes' screens, footer pixel-stripe, cartridge top label.
+     NOT used as primary accent anymore. */
   --gb-green: #9bbc0f;
   --gb-green-dk: #0f380f;
-  --gb-green-glow: rgba(155, 188, 15, 0.35);
 
   /* Hot accents */
-  --alert-red: #c8362d;
-  --gold-pro: #d8a626;
-  --gold-pro-dk: #8c6a14;
+  --alert-red: #d9412b;
+  --gold-pro: #e8b842;
+  --gold-pro-dk: #966d14;
 
   /* Typography ramps */
   --font-display: "VT323", ui-monospace, monospace;
@@ -76,8 +82,8 @@ body {
 }
 
 ::selection {
-  background-color: var(--gb-green);
-  color: var(--gb-green-dk);
+  background-color: var(--accent);
+  color: var(--paper);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -197,7 +203,7 @@ button {
   font-size: 1.375rem;
   margin-top: 2em;
   margin-bottom: 0.5em;
-  color: var(--gb-green-dk);
+  color: var(--accent-dk);
 }
 
 .prose ul,
@@ -211,13 +217,13 @@ button {
 }
 
 .prose a {
-  color: var(--gb-green-dk);
-  border-bottom: 1px solid var(--gb-green);
+  color: var(--accent-dk);
+  border-bottom: 1px solid var(--accent);
   transition: background-color 120ms ease;
 }
 
 .prose a:hover {
-  background-color: rgba(155, 188, 15, 0.18);
+  background-color: rgba(118, 37, 196, 0.14);
 }
 
 .prose strong {
@@ -246,7 +252,7 @@ button {
   font-size: 0.75rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--gb-green-dk);
+  color: var(--accent-dk);
 }
 
 /* Buttons */
@@ -267,17 +273,17 @@ button {
     transform 120ms ease,
     box-shadow 120ms ease,
     background-color 120ms ease;
-  box-shadow: 4px 4px 0 var(--gb-green-dk);
+  box-shadow: 4px 4px 0 var(--accent);
 }
 
 .btn:hover {
   transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 var(--gb-green-dk);
+  box-shadow: 6px 6px 0 var(--accent);
 }
 
 .btn:active {
   transform: translate(0, 0);
-  box-shadow: 2px 2px 0 var(--gb-green-dk);
+  box-shadow: 2px 2px 0 var(--accent);
 }
 
 .btn-disabled {
@@ -427,7 +433,7 @@ button {
 
 /* Focus rings */
 :focus-visible {
-  outline: 2px solid var(--gb-green-dk);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 2px;
 }

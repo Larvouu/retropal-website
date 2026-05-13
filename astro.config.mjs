@@ -22,4 +22,11 @@ export default defineConfig({
       applyBaseStyles: false,
     }),
   ],
+  vite: {
+    server: {
+      // Allow access via Cloudflare quick tunnels for remote preview
+      // (Vite blocks unknown hosts by default for SSRF protection).
+      allowedHosts: [".trycloudflare.com", ".pages.dev"],
+    },
+  },
 });

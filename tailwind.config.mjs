@@ -5,15 +5,20 @@ export default {
   theme: {
     extend: {
       colors: {
-        paper: "#F4ECD8",
-        "paper-tint": "#EDE4CC",
-        ink: "#1A1814",
-        "ink-soft": "#5C5752",
-        rule: "#C7B8A0",
+        paper: "#DFF9FB",
+        "paper-tint": "#C8EFF2",
+        "paper-deep": "#B0E5EA",
+        ink: "#1E1A3B",
+        "ink-soft": "#4A4470",
+        "ink-faint": "#7A748C",
+        rule: "#9DBFC7",
+        accent: "#7625C4",
+        "accent-dk": "#51188A",
         "gb-green": "#9BBC0F",
         "gb-green-dk": "#0F380F",
-        "alert-red": "#C8362D",
-        "gold-pro": "#D8A626",
+        "alert-red": "#D9412B",
+        "gold-pro": "#E8B842",
+        "gold-pro-dk": "#966D14",
       },
       fontFamily: {
         display: ["VT323", "ui-monospace", "monospace"],
