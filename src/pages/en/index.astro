@@ -75,17 +75,22 @@ const proPerks = [
 
 <BaseLayout title="Retro Pal" isHome={true}>
   {/* ============================================================
-       Hero
+       Hero — magazine cover spread
        ============================================================ */}
   <section class="hero scanlines" id="hero">
+    <div class="hero-halftone" aria-hidden="true"></div>
+
     <div class="page-shell hero-inner">
       <div class="hero-content">
         <div class="hero-eyebrow rise rise-d1">
+          <span class="kicker hero-cover-story">★ Cover Story</span>
           <span class="tape">Private beta · 2026</span>
-          <span class="kicker">iOS Emulator</span>
         </div>
 
-        <h1 class="hero-title rise rise-d2">Retro Pal</h1>
+        <h1 class="hero-title rise rise-d2">
+          <span class="hero-title-line">Retro</span>
+          <span class="hero-title-line hero-title-emph">Pal</span>
+        </h1>
 
         <p class="hero-sub rise rise-d3">The console you grew up with. Now in your pocket.</p>
 
@@ -111,10 +116,32 @@ const proPerks = [
       </div>
 
       <div class="hero-art" aria-hidden="true">
+        <div class="hero-sticker rise rise-d4">
+          <span class="hero-sticker-top">★ Exclusive</span>
+          <span class="hero-sticker-big">№01</span>
+          <span class="hero-sticker-bot">2026</span>
+        </div>
+
         <Cartridge tilt={-4} />
+
         <div class="hero-art-grid"></div>
+
+        <span class="hero-callout cb-1">
+          <span class="cb-arrow">→</span>
+          <span class="cb-text">Four consoles<br />in one app</span>
+        </span>
+        <span class="hero-callout cb-2">
+          <span class="cb-text">30-second<br />rewind</span>
+          <span class="cb-arrow">←</span>
+        </span>
+        <span class="hero-callout cb-3">
+          <span class="cb-arrow">↗</span>
+          <span class="cb-text">No ads<br />no tracking</span>
+        </span>
       </div>
     </div>
+
+    <div class="hero-bottom-rule" aria-hidden="true"></div>
   </section>
 
   {/* ============================================================
@@ -290,35 +317,85 @@ const proPerks = [
 </BaseLayout>
 
 <style>
-  /* Hero */
+  /* Hero — magazine cover */
   .hero {
     position: relative;
     padding-block: clamp(3rem, 7vw, 6rem) clamp(4rem, 9vw, 7rem);
     background:
       radial-gradient(
-        ellipse 60% 50% at 80% 20%,
-        rgba(118, 37, 196, 0.12),
+        ellipse 65% 55% at 75% 25%,
+        rgba(118, 37, 196, 0.14),
         transparent 70%
       );
+    overflow: hidden;
+  }
+  .hero-halftone {
+    position: absolute;
+    top: -10%;
+    right: -8%;
+    width: 55%;
+    height: 80%;
+    pointer-events: none;
+    background-image: radial-gradient(var(--accent) 1.4px, transparent 1.6px);
+    background-size: 14px 14px;
+    opacity: 0.08;
+    mask-image: radial-gradient(ellipse at top right, black 30%, transparent 75%);
+    z-index: 0;
+  }
+  .hero-bottom-rule {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 4px;
+    background: linear-gradient(
+      to right,
+      var(--accent) 0 16%,
+      var(--ink) 16% 18%,
+      var(--paper) 18% 22%,
+      var(--ink) 22% 24%,
+      var(--accent) 24% 50%,
+      var(--ink) 50% 52%,
+      var(--accent-dk) 52% 100%
+    );
+    image-rendering: pixelated;
   }
   .hero-inner {
+    position: relative;
+    z-index: 1;
     display: grid;
-    grid-template-columns: 1.3fr 0.9fr;
-    gap: 3rem;
+    grid-template-columns: 1.25fr 1fr;
+    gap: clamp(2rem, 4vw, 3.5rem);
     align-items: center;
   }
   .hero-eyebrow {
     display: inline-flex;
     align-items: center;
     gap: 1rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .hero-cover-story {
+    color: var(--accent-dk);
+    font-weight: 500;
   }
   .hero-title {
     font-family: var(--font-display);
-    font-size: clamp(4.5rem, 11vw + 0.5rem, 9rem);
-    line-height: 0.9;
+    font-size: clamp(4.5rem, 13vw + 0.5rem, 11rem);
+    line-height: 0.85;
     color: var(--ink);
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.7rem;
+    letter-spacing: -0.005em;
+    display: flex;
+    align-items: baseline;
+    gap: 0.18em;
+  }
+  .hero-title-line { display: inline-block; }
+  .hero-title-emph {
+    color: var(--accent);
+    transform: rotate(-2deg);
+    text-shadow:
+      4px 4px 0 var(--accent-dk),
+      8px 8px 0 rgba(118, 37, 196, 0.2);
   }
   .hero-sub {
     font-family: var(--font-display);
@@ -366,20 +443,74 @@ const proPerks = [
     align-items: center;
   }
   .hero-nameplate .sep { color: var(--rule); }
-  .hero-art { position: relative; display: grid; place-items: center; }
+  .hero-art { position: relative; display: grid; place-items: center; min-height: 360px; }
   .hero-art-grid {
     position: absolute;
     inset: -10% -8%;
     background-image:
-      linear-gradient(to right, rgba(26, 24, 20, 0.06) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(26, 24, 20, 0.06) 1px, transparent 1px);
+      linear-gradient(to right, rgba(30, 26, 59, 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(30, 26, 59, 0.06) 1px, transparent 1px);
     background-size: 24px 24px;
     z-index: -1;
     mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
   }
+  .hero-sticker {
+    position: absolute;
+    top: -2%;
+    right: -4%;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.15rem;
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--paper);
+    box-shadow:
+      0 0 0 4px var(--paper),
+      0 0 0 6px var(--accent-dk),
+      6px 8px 0 rgba(81, 24, 138, 0.35);
+    transform: rotate(14deg);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-align: center;
+  }
+  .hero-sticker-top { font-size: 0.55rem; opacity: 0.95; }
+  .hero-sticker-big { font-family: var(--font-display); font-size: 1.85rem; letter-spacing: 0.02em; line-height: 1; }
+  .hero-sticker-bot { font-size: 0.55rem; opacity: 0.9; }
+  .hero-callout {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink);
+    line-height: 1.25;
+    z-index: 2;
+  }
+  .cb-text {
+    background: var(--paper);
+    padding: 0.25rem 0.45rem;
+    border: 1px solid var(--ink);
+    box-shadow: 2px 2px 0 var(--accent);
+  }
+  .cb-arrow { font-family: var(--font-display); font-size: 1.6rem; color: var(--accent); line-height: 1; }
+  .cb-1 { top: 12%; left: -2%; transform: rotate(-4deg); }
+  .cb-2 { bottom: 18%; right: -2%; transform: rotate(3deg); }
+  .cb-3 { bottom: -2%; left: 12%; transform: rotate(-2deg); }
   @media (max-width: 860px) {
     .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
     .hero-art { order: -1; margin-bottom: 0.5rem; }
+    .hero-callout { display: none; }
+    .hero-sticker { width: 72px; height: 72px; top: -10px; right: 4px; }
+    .hero-sticker-big { font-size: 1.4rem; }
   }
 
   /* Anti */
