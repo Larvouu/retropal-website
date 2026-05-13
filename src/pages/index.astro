@@ -246,41 +246,61 @@ const proPerks = [
   </section>
 
   {/* ============================================================
-       Pro pricing block
+       Pro pricing block — magazine subscription pitch
        ============================================================ */}
   <section class="section pro" id="pro">
     <div class="page-shell pro-shell">
-      <SectionCounter index={4} total={6} label="Retro Pal Pro" />
+      <SectionCounter index={4} total={6} label="Abonne-toi · sauf que non" />
 
       <div class="pro-card">
+        {/* SPECIAL OFFER! tape sticker in the top-right corner */}
+        <span class="pro-sticker" aria-hidden="true">
+          <span class="pro-sticker-line">Offre</span>
+          <span class="pro-sticker-line pro-sticker-big">Spéciale!</span>
+          <span class="pro-sticker-line">★ ★ ★</span>
+        </span>
+
         <div class="pro-headline">
-          <h2 class="pro-title">Retro Pal Pro</h2>
-          <p class="pro-tag">Un seul achat, c'est tout. Pour la vie.</p>
+          <span class="pro-eyebrow">★ Retro Pal Pro · Le coupon</span>
+          <h2 class="pro-title">4,99 €. Une fois. Fini.</h2>
+          <p class="pro-tag">
+            On t'a tellement parlé d'abonnement que tu ne te souviens même plus
+            de ce que signifie « acheter une app ». Ça : c'est ça.
+          </p>
         </div>
 
         <div class="pro-pricing">
-          <div class="pro-price">
-            <span class="pro-amount">4,99 €</span>
-            <span class="pro-period">à vie</span>
+          <div class="pro-price-burst" aria-hidden="true">
+            {/* CSS-only sunburst behind the price */}
           </div>
-          <span class="pro-or">ou</span>
-          <div class="pro-price secondary">
-            <span class="pro-amount">0,99 €</span>
-            <span class="pro-period">/ mois</span>
+          <div class="pro-price-main">
+            <div class="pro-price">
+              <span class="pro-amount">4,99 €</span>
+              <span class="pro-period">à vie</span>
+            </div>
+            <span class="pro-divider"></span>
+            <div class="pro-price secondary">
+              <span class="pro-amount-small">ou 0,99 €</span>
+              <span class="pro-period">/ mois</span>
+            </div>
           </div>
         </div>
 
-        <ul class="pro-perks">
-          {proPerks.map((p) => (
-            <li>
-              <span class="pro-check" aria-hidden="true">✓</span>
-              <span>{p}</span>
-            </li>
-          ))}
-        </ul>
+        <div class="pro-perks-wrap">
+          <p class="pro-perks-head">Ce que tu débloques :</p>
+          <ul class="pro-perks">
+            {proPerks.map((p) => (
+              <li>
+                <span class="pro-check" aria-hidden="true">✓</span>
+                <span>{p}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
 
         <p class="pro-foot">
-          Le tarif à vie est notre principale offre. L'abonnement existe pour ceux qui préfèrent.
+          <strong>Le tarif à vie est notre offre principale.</strong>
+          L'abonnement existe pour ceux qui préfèrent payer petit-à-petit.
           Tu peux annuler à tout moment depuis l'App Store. Tu peux passer du mensuel au lifetime quand tu veux.
         </p>
       </div>
@@ -914,7 +934,7 @@ const proPerks = [
   }
 
   /* ============================================================
-     Pro
+     Pro — magazine subscription pitch
      ============================================================ */
   .pro {
     background: var(--paper-tint);
@@ -924,9 +944,9 @@ const proPerks = [
     margin-top: 2rem;
     background: var(--paper);
     border: 2px solid var(--ink);
-    padding: clamp(1.75rem, 4vw, 3rem);
+    padding: clamp(2rem, 4.5vw, 3.5rem);
     position: relative;
-    box-shadow: 8px 8px 0 var(--gold-pro-dk);
+    box-shadow: 10px 10px 0 var(--gold-pro-dk);
   }
 
   .pro-card::before {
@@ -934,40 +954,144 @@ const proPerks = [
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background-image: radial-gradient(
-      var(--gold-pro) 1px,
-      transparent 1.2px
-    );
+    background-image: radial-gradient(var(--gold-pro) 1px, transparent 1.2px);
     background-size: 24px 24px;
     opacity: 0.08;
   }
 
+  /* SPECIAL OFFER tape sticker, rotated, top-right */
+  .pro-sticker {
+    position: absolute;
+    top: -22px;
+    right: -18px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.1rem;
+    width: 134px;
+    height: 134px;
+    border-radius: 50%;
+    background: var(--alert-red);
+    color: var(--paper);
+    box-shadow:
+      0 0 0 5px var(--paper),
+      0 0 0 7px var(--alert-red),
+      8px 10px 0 rgba(20, 10, 10, 0.18);
+    transform: rotate(12deg);
+    font-family: var(--font-display);
+    text-align: center;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .pro-sticker-line {
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+  }
+
+  .pro-sticker-big {
+    font-size: 1.6rem;
+    letter-spacing: 0.005em;
+  }
+
   .pro-headline {
     position: relative;
+    max-width: 32ch;
+  }
+
+  .pro-eyebrow {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold-pro-dk);
+    margin-bottom: 0.85rem;
   }
 
   .pro-title {
     font-family: var(--font-display);
-    font-size: clamp(2.25rem, 4.5vw + 0.5rem, 3.5rem);
-    color: var(--gold-pro-dk);
+    font-size: clamp(2.5rem, 5vw + 0.5rem, 4rem);
+    color: var(--ink);
     line-height: 1;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.85rem;
   }
 
   .pro-tag {
     font-family: var(--font-body);
     font-style: italic;
-    font-size: 1.125rem;
+    font-size: 1.0625rem;
     color: var(--ink-soft);
+    line-height: 1.55;
+    max-width: 44ch;
   }
 
   .pro-pricing {
-    margin-top: 2rem;
-    display: flex;
+    margin-top: 2.5rem;
+    position: relative;
+    padding-block: 0.5rem;
+  }
+
+  /* Sunburst behind the price */
+  .pro-price-burst {
+    position: absolute;
+    top: 50%;
+    left: -10px;
+    transform: translateY(-50%);
+    width: 280px;
+    height: 280px;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      conic-gradient(
+        var(--gold-pro) 0 8deg,
+        transparent 8deg 30deg,
+        var(--gold-pro) 30deg 38deg,
+        transparent 38deg 60deg,
+        var(--gold-pro) 60deg 68deg,
+        transparent 68deg 90deg,
+        var(--gold-pro) 90deg 98deg,
+        transparent 98deg 120deg,
+        var(--gold-pro) 120deg 128deg,
+        transparent 128deg 150deg,
+        var(--gold-pro) 150deg 158deg,
+        transparent 158deg 180deg,
+        var(--gold-pro) 180deg 188deg,
+        transparent 188deg 210deg,
+        var(--gold-pro) 210deg 218deg,
+        transparent 218deg 240deg,
+        var(--gold-pro) 240deg 248deg,
+        transparent 248deg 270deg,
+        var(--gold-pro) 270deg 278deg,
+        transparent 278deg 300deg,
+        var(--gold-pro) 300deg 308deg,
+        transparent 308deg 330deg,
+        var(--gold-pro) 330deg 338deg,
+        transparent 338deg 360deg
+      );
+    opacity: 0.32;
+    mask-image: radial-gradient(circle, black 35%, transparent 70%);
+    animation: pro-burst-spin 60s linear infinite;
+  }
+
+  @keyframes pro-burst-spin {
+    from {
+      transform: translateY(-50%) rotate(0);
+    }
+    to {
+      transform: translateY(-50%) rotate(360deg);
+    }
+  }
+
+  .pro-price-main {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
     align-items: baseline;
     gap: 1.5rem;
     flex-wrap: wrap;
-    position: relative;
   }
 
   .pro-price {
@@ -978,47 +1102,65 @@ const proPerks = [
 
   .pro-amount {
     font-family: var(--font-display);
-    font-size: clamp(2.5rem, 5vw + 0.5rem, 4rem);
+    font-size: clamp(3rem, 6vw + 0.5rem, 5rem);
     color: var(--ink);
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+
+  .pro-amount-small {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 2.5vw + 0.5rem, 2.25rem);
+    color: var(--ink-soft);
     line-height: 1;
   }
 
   .pro-period {
     font-family: var(--font-mono);
-    font-size: 0.875rem;
-    letter-spacing: 0.16em;
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--ink-soft);
   }
 
-  .pro-price.secondary .pro-amount {
-    font-size: 2rem;
-    color: var(--ink-soft);
+  .pro-divider {
+    display: inline-block;
+    width: 2px;
+    height: 2.5rem;
+    background: var(--rule);
+    align-self: center;
   }
 
-  .pro-or {
+  .pro-perks-wrap {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 2px dashed var(--rule);
+    position: relative;
+  }
+
+  .pro-perks-head {
     font-family: var(--font-mono);
     font-size: 0.75rem;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--ink-faint);
+    margin-bottom: 1.25rem;
   }
 
   .pro-perks {
     list-style: none;
-    margin: 2rem 0 0;
+    margin: 0;
     padding: 0;
     display: grid;
-    gap: 0.6rem;
-    position: relative;
+    gap: 0.65rem;
   }
 
   .pro-perks li {
     display: grid;
     grid-template-columns: 1.5rem 1fr;
-    gap: 0.6rem;
+    gap: 0.65rem;
     font-family: var(--font-body);
-    font-size: 1rem;
+    font-size: 1.0625rem;
     color: var(--ink);
     align-items: baseline;
   }
@@ -1026,18 +1168,37 @@ const proPerks = [
   .pro-check {
     font-family: var(--font-display);
     color: var(--gold-pro-dk);
-    font-size: 1.25rem;
+    font-size: 1.35rem;
     line-height: 1;
   }
 
   .pro-foot {
     margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px dashed var(--rule);
     font-family: var(--font-body);
-    font-size: 0.875rem;
+    font-size: 0.9375rem;
     color: var(--ink-soft);
-    line-height: 1.6;
-    max-width: 60ch;
+    line-height: 1.65;
+    max-width: 62ch;
     position: relative;
+  }
+
+  .pro-foot strong {
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  @media (max-width: 540px) {
+    .pro-sticker {
+      width: 100px;
+      height: 100px;
+      top: -16px;
+      right: -10px;
+    }
+    .pro-sticker-line { font-size: 0.75rem; }
+    .pro-sticker-big { font-size: 1.2rem; }
+    .pro-price-burst { width: 200px; height: 200px; }
   }
 
   /* ============================================================
