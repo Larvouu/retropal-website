@@ -87,7 +87,7 @@ export const fr: Strings = {
   },
   meta: {
     siteName: "Retro Pal",
-    tagline: "L'émulateur rétro que ton iPhone mérite",
+    tagline: "La console de ton enfance. Maintenant dans ta poche",
     description:
       "Joue à tes jeux GBA, Game Boy, Game Boy Color et Nintendo DS sur iPhone. Sans pub, sans collecte de données, sans abonnement obligatoire. Pour toujours.",
   },
@@ -124,7 +124,7 @@ export const en: Strings = {
   },
   meta: {
     siteName: "Retro Pal",
-    tagline: "The retro emulator your iPhone deserves",
+    tagline: "The console you grew up with. Now in your pocket",
     description:
       "Play your GBA, Game Boy, Game Boy Color and Nintendo DS games on iPhone. No ads, no tracking, no required subscription. Forever.",
   },
