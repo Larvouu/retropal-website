@@ -1,0 +1,1678 @@
+---
+/**
+ * /todo — Internal launch dashboard for Retro Pal 1.1.
+ *
+ * Full content of TODO_avant_lancement.md (Approche D, GTM 1.1) rendered as a
+ * single-glance dashboard. Checkboxes persist client-side in localStorage
+ * (per browser, no backend). Page is noindex: it is a private working surface.
+ *
+ * To edit the checklist, edit the data arrays below. Each task needs a STABLE
+ * `id` — it is the localStorage key. Never reuse or recycle an id.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const LAUNCH_DATE = "2026-07-10"; // Semaine 9, Jour 0
+
+const constraints = [
+  "Budget de 0 €, sauf un test diagnostique Apple Search Ads de 20 à 50 € en semaine 2.",
+  "Environ 4 à 5 h par semaine, de façon soutenue.",
+  "Voix de marque anonyme : le nom du fondateur n'apparaît que dans les mentions légales.",
+  "Développeur solo, pas d'équipe.",
+];
+
+const launchPlan = [
+  "La build 1.0(2) est en revue App Store. La laisser être approuvée, puis suspendre la diffusion (ne pas la publier).",
+  "Semaines 1 à 6 : construire la 1.1 avec le kit de fondations complet (manette, synchronisation iCloud, import de sauvegardes Manic, ASO peaufiné, vélocité des avis, messagerie Zoho).",
+  "Bêta TestFlight de la 1.1 avec 5 amis de la cohorte de bêta non réalisée, en semaines 5 et 6.",
+  "Soumettre la 1.1 à la revue App Store à la fin de la semaine 6.",
+  "Le jour de sortie de la 1.1 est le vrai lancement. Toute la promotion se déclenche à ce moment.",
+  "Cadence soutenue de 4 h par semaine à partir de la semaine 9.",
+];
+
+const excludedChannels = [
+  "Démarchage presse (FR ou EN). Anonymat de marque et presse sont contradictoires.",
+  "TikTok et Reels au lancement. Risque DMCA et surcharge de cadence.",
+  "Discord AltStore PAL. Mauvais persona.",
+  "Posts de lancement sur Reddit. Les comptes de marque y sont bannis automatiquement.",
+  "Contenu SEO « Retro Pal contre Manic ». Effet Streisand.",
+];
+
+type Task = { id: string; lead: string; note?: string; done?: boolean };
+type Week = {
+  code: string;
+  name: string;
+  title: string;
+  dates: string;
+  range: { start: string; end: string };
+  effort?: string;
+  intro?: string;
+  seqNote?: string;
+  tasks: Task[];
+};
+
+const weeks: Week[] = [
+  {
+    code: "S0",
+    name: "Semaine 0",
+    title: "Prérequis avant la semaine 1",
+    dates: "Avant le 15 mai",
+    range: { start: "2026-05-01", end: "2026-05-14" },
+    intro:
+      "À faire AVANT de commencer la semaine 1. Ces tâches débloquent le travail en aval et évitent les mauvaises surprises en cours de fondations.",
+    tasks: [
+      {
+        id: "s0-icloud",
+        lead: "Vérifier que la fonctionnalité iCloud Documents est activée sur l'App ID com.retropal.",
+        note: "Portail développeur Apple, section Identifiants. Si la case iCloud n'est pas cochée : activer la fonctionnalité, régénérer le profil de provisionnement, puis réarchiver. Environ 1 h si nécessaire, 5 min juste pour vérifier.",
+      },
+      {
+        id: "s0-manic-sav",
+        lead: "Récupérer un fichier .sav d'exemple depuis Manic.",
+        note: "Exporter une sauvegarde Pokémon depuis Manic, sur TestFlight ou sur l'appareil d'un ami. Enregistrer dans Vendor/test-fixtures/manic-pokemon.sav. Sans un vrai export, la rétro-ingénierie de ManicSaveImporter est bloquée.",
+      },
+      {
+        id: "s0-cpi",
+        lead: "Écrire noir sur blanc le critère d'arrêt des Apple Search Ads.",
+        note: "CPI supérieur à 3 € maintenu pendant 7 jours = mettre les annonces en pause, livrer la 1.1 sur le trafic organique, reconsidérer le paiement après la 1.1.1. Pré-décider avant la semaine 2 évite le biais des coûts irrécupérables.",
+      },
+      {
+        id: "s0-testplan",
+        lead: "Lire le plan de test et parcourir les révisions du document de conception.",
+        note: "Plan de test : root-main-eng-review-test-plan-20260515-143511.md.",
+      },
+    ],
+  },
+  {
+    code: "S1",
+    name: "Semaine 1",
+    title: "Mise en place et recherche",
+    dates: "15 → 21 mai",
+    range: { start: "2026-05-15", end: "2026-05-21" },
+    effort: "≈ 5 h",
+    tasks: [
+      {
+        id: "s1-asc-manual",
+        lead: "Confirmer le réglage de diffusion « manuelle » dans App Store Connect pour la 1.0(2).",
+        note: "Fait en session.",
+        done: true,
+      },
+      {
+        id: "s1-zoho",
+        lead: "Configurer la messagerie gratuite Zoho pour retropal.fr.",
+        note: "Enregistrements DNS via Cloudflare, environ 30 min. Activer l'envoi depuis support@retropal.fr et press@retropal.fr. Tester la délivrabilité.",
+      },
+      {
+        id: "s1-reddit",
+        lead: "Réserver le pseudo Reddit u/retropal.",
+        note: "Bio « Retro Pal, émulateur Nintendo portable iOS ». Ne rien publier pour l'instant.",
+      },
+      {
+        id: "s1-manic-format",
+        lead: "Cadrer le format d'export des sauvegardes de Manic.",
+        note: "Installer Manic, trouver l'option d'export, documenter le format binaire. Déterminer si le format de Delta est assez proche pour l'ajouter à moindre coût en 1.1, ou le repousser en 1.1.1. Environ 2 h.",
+      },
+      {
+        id: "s1-aso-research",
+        lead: "Démarrer la recherche de mots-clés ASO pour le marché FR.",
+        note: "App Store Connect search analytics et offre gratuite d'AppFollow. Liste de candidats pour le champ « Mots-clés » de 100 caractères. Uniquement des termes de trafic pur, pas de langage de positionnement. Environ 2 h.",
+      },
+    ],
+  },
+  {
+    code: "S2",
+    name: "Semaine 2",
+    title: "Cible de tests, manette, ASO, Search Ads",
+    dates: "22 → 28 mai",
+    range: { start: "2026-05-22", end: "2026-05-28" },
+    effort: "≈ 5 h",
+    tasks: [
+      {
+        id: "s2-testtarget",
+        lead: "Mettre en place la cible de tests unitaires Xcode EmulateurGBATests.",
+        note: "Environ 1 h. Aucune dépendance SPM pour la v1, XCTest uniquement. La dépendance de tests par capture est repoussée (TODO-2).",
+      },
+      {
+        id: "s2-prompttracker",
+        lead: "Refactoriser PromptTracker pour accepter un UserDefaults injectable.",
+        note: "Environ 30 min. Nécessaire pour la testabilité unitaire.",
+      },
+      {
+        id: "s2-controller",
+        lead: "Implémenter la prise en charge des manettes extendedGamepad.",
+        note: "Environ 3 h, Chantier B. Extraire un protocole ControllerInputSource depuis ControllerManager. Masquer les commandes tactiles quand une manette est connectée.",
+      },
+      {
+        id: "s2-aso-fr",
+        lead: "Rédiger le brouillon de refonte ASO FR.",
+        note: "Environ 2 h. Sous-titre (30 car.), mots-clés (100 car. de trafic pur), texte promotionnel (170 car.), description complète. Ne jamais mentionner Pokémon, Mario, Zelda ou une marque précise.",
+      },
+      {
+        id: "s2-searchads",
+        lead: "Créer le compte Apple Search Ads et une campagne diagnostique de 20 à 50 €.",
+        note: "Environ 1 h. Mots-clés : « émulateur gba », « manic emu », « émulateur iphone ». 7 jours. Verrou ferme : CPI supérieur à 3 € maintenu = mise en pause, livraison sur l'organique.",
+      },
+    ],
+  },
+  {
+    code: "S3",
+    name: "Semaine 3",
+    title: "Refactorisation SaveStateManager et tests",
+    dates: "29 mai → 4 juin",
+    range: { start: "2026-05-29", end: "2026-06-04" },
+    effort: "≈ 5 h",
+    seqNote:
+      "Séquencement : la refactorisation NSFileCoordinator de SaveStateManager (Chantier C) DOIT être livrée avant le hook recordSaveStateCreated() du Chantier A. L'ordre compte.",
+    tasks: [
+      {
+        id: "s3-savestate",
+        lead: "Refactoriser SaveStateManager autour de NSFileCoordinator.",
+        note: "Environ 3 h, prérequis du Chantier C. Chaque lecture et écriture devient coordonnée. Infrastructure nécessaire pour la synchronisation iCloud.",
+      },
+      {
+        id: "s3-controller-tests",
+        lead: "Implémenter les tests unitaires de ControllerManager.",
+        note: "Environ 45 min, Chantier B. 3 tests : couverture du mappage, appui simultané, la déconnexion vide les boutons maintenus.",
+      },
+      {
+        id: "s3-aso-en",
+        lead: "Refonte ASO EN.",
+        note: "Environ 1 h. Traduire le message différenciant depuis le master FR. Rechercher les termes de trafic EN.",
+      },
+    ],
+  },
+  {
+    code: "S4",
+    name: "Semaine 4",
+    title: "Synchronisation iCloud et page produit",
+    dates: "5 → 11 juin",
+    range: { start: "2026-06-05", end: "2026-06-11" },
+    effort: "≈ 5 h",
+    tasks: [
+      {
+        id: "s4-icloud",
+        lead: "Implémenter iCloudSaveSync au-dessus du SaveStateManager refactorisé.",
+        note: "Environ 5 h, Chantier C. Présentateur NSFilePresenter de longue durée. Résolution de conflit « la date la plus récente gagne ». Bascule silencieuse en local seul si iCloud est indisponible. Exposer l'état dans les Réglages.",
+      },
+      {
+        id: "s4-cpp",
+        lead: "Mettre en place une page produit personnalisée dans App Store Connect.",
+        note: "Environ 90 min. Une page alternative ciblant le groupe de mots-clés FR autour des consoles portables rétro.",
+      },
+      {
+        id: "s4-searchads-review",
+        lead: "Examiner les résultats du diagnostic Apple Search Ads.",
+        note: "Point de décision selon le critère d'arrêt fixé en semaine 0.",
+      },
+    ],
+  },
+  {
+    code: "S5",
+    name: "Semaine 5",
+    title: "Import .sav Manic, PromptTracker, tests, Folium",
+    dates: "12 → 18 juin",
+    range: { start: "2026-06-12", end: "2026-06-18" },
+    effort: "≈ 5 h",
+    tasks: [
+      {
+        id: "s5-manic-import",
+        lead: "Implémenter ManicSaveImporter pour le .sav uniquement.",
+        note: "Environ 3 h, Chantier C. Analyser l'en-tête Manic, mapper vers le schéma interne, gérer les erreurs. L'import de sauvegarde d'état complète est repoussé en 1.1.1 (TODO-4).",
+      },
+      {
+        id: "s5-prompttracker-engaged",
+        lead: "Ajouter le parcours engagedFirstTimer à PromptTracker.",
+        note: "Environ 1 h, Chantier A. Nouveau déclencheur : première session, plus 15 min, plus 1 sauvegarde d'état créée.",
+      },
+      {
+        id: "s5-unittests",
+        lead: "Écrire les tests unitaires : 6 pour PromptTracker, 6 pour ManicSaveImporter.",
+        note: "Environ 2 h. Couverture de régression selon la règle d'or sur PromptTracker.",
+      },
+      {
+        id: "s5-folium",
+        lead: "Analyser les avis 1 étoile FR de Folium.",
+        note: "Environ 1 h 30. Extraire les 5 plaintes les plus fréquentes, les reformuler en arguments positifs pour les légendes de captures et la page produit personnalisée.",
+      },
+      {
+        id: "s5-deepl",
+        lead: "Traduire l'ASO du master FR vers les 8 autres langues avec DeepL.",
+        note: "Environ 30 min.",
+      },
+    ],
+  },
+  {
+    code: "S6",
+    name: "Semaine 6",
+    title: "Bêta TestFlight et mise en avant",
+    dates: "19 → 25 juin",
+    range: { start: "2026-06-19", end: "2026-06-25" },
+    effort: "≈ 5 h",
+    tasks: [
+      {
+        id: "s6-testflight",
+        lead: "Soumettre la 1.1 sur TestFlight.",
+        note: "Environ 30 min. Compiler, archiver, téléverser, groupe de test interne.",
+      },
+      {
+        id: "s6-invite",
+        lead: "Inviter 5 amis de la cohorte de bêta non réalisée.",
+        note: "Environ 30 min. Bêta d'une semaine, focalisée sur le signal comportemental manette, synchronisation cloud et import de sauvegarde.",
+      },
+      {
+        id: "s6-review-templates",
+        lead: "Ajouter les ébauches de modèles de réponse aux avis (FR, EN, DE, IT, ES).",
+        note: "Environ 1 h. Les 8 autres langues pilotées par modèle, peaufinées après le lancement.",
+      },
+      {
+        id: "s6-featuring",
+        lead: "Soumettre une proposition de mise en avant Apple (Featuring Nomination).",
+        note: "Environ 1 h. Angle : conçu en Europe, localisation FR complète, premier émulateur payant natif de console portable Nintendo sur l'App Store européen avec manette, synchronisation cloud et import de sauvegardes.",
+      },
+      {
+        id: "s6-p0",
+        lead: "Réserver 1 h 30 pour tout bug P0 trouvé en bêta.",
+      },
+    ],
+  },
+  {
+    code: "S7",
+    name: "Semaine 7",
+    title: "Fin de bêta et soumission 1.1",
+    dates: "26 juin → 2 juillet",
+    range: { start: "2026-06-26", end: "2026-07-02" },
+    effort: "≈ 5 h",
+    tasks: [
+      {
+        id: "s7-checkin",
+        lead: "Observations de suivi avec les testeurs bêta.",
+        note: "Environ 2 h. Observer un testeur en visio. Appliquer la règle « se mordre la langue ».",
+      },
+      {
+        id: "s7-p1",
+        lead: "Corriger les éventuels problèmes P1 de la bêta.",
+        note: "Environ 2 h de réserve.",
+      },
+      {
+        id: "s7-strip-beta",
+        lead: "Retirer les chemins de code #if BETA si un échafaudage a fui.",
+        note: "Vérifier avec la commande strings.",
+      },
+      {
+        id: "s7-submit",
+        lead: "Soumettre la 1.1 à la revue App Store.",
+        note: "Environ 30 min. Diffusion configurée sur « manuelle ».",
+      },
+      {
+        id: "s7-day0",
+        lead: "Préparer les supports de lancement du jour J.",
+        note: "Environ 30 min. Brouillon de l'article de blog, captures en carte de partage pour Bluesky, création du compte de marque Bluesky.",
+      },
+    ],
+  },
+  {
+    code: "S8",
+    name: "Semaine 8",
+    title: "Attente revue Apple et préparation",
+    dates: "3 → 9 juillet",
+    range: { start: "2026-07-03", end: "2026-07-09" },
+    effort: "≈ 3 h",
+    tasks: [
+      {
+        id: "s8-wait",
+        lead: "Attendre l'approbation Apple de la 1.1.",
+        note: "Généralement 24 à 48 h.",
+      },
+      {
+        id: "s8-smoke",
+        lead: "Dernier test rapide de bon fonctionnement sur la build de production.",
+        note: "Une fois la version approuvée.",
+      },
+      {
+        id: "s8-blog",
+        lead: "Finaliser l'article de blog retropal.fr.",
+        note: "Voix de marque, sans fondateur. Environ 2 h.",
+      },
+      {
+        id: "s8-bluesky",
+        lead: "Finaliser le compte de marque Bluesky.",
+        note: "Environ 30 min. Bio, post épinglé, suivre les comptes du starter pack rétro.",
+      },
+    ],
+  },
+  {
+    code: "S9",
+    name: "Semaine 9",
+    title: "Lancement de la 1.1",
+    dates: "10 → 16 juillet",
+    range: { start: "2026-07-10", end: "2026-07-16" },
+    effort: "≈ 5 h",
+    tasks: [
+      {
+        id: "s9-release",
+        lead: "Jour 0 : diffuser la 1.1 manuellement dans App Store Connect.",
+      },
+      {
+        id: "s9-blog",
+        lead: "Jour 0 : publier l'article de blog de lancement sur retropal.fr.",
+      },
+      {
+        id: "s9-social",
+        lead: "Jour 0 : publier l'annonce sur Bluesky et Twitter.",
+        note: "Avec les captures en carte de partage.",
+      },
+      {
+        id: "s9-monitor",
+        lead: "Jours 1 à 30 : surveiller les avis App Store.",
+        note: "Répondre à chaque avis sous 24 h, dans sa langue d'origine, avec les modèles préparés.",
+      },
+      {
+        id: "s9-seo",
+        lead: "Jours 3 à 7 : publier le premier article SEO sur retropal.fr.",
+        note: "« Delta n'est pas sur l'App Store européen, voici les alternatives en 2026 ». Environ 3 à 4 h.",
+      },
+    ],
+  },
+];
+
+type Milestone = {
+  code: string;
+  name: string;
+  title: string;
+  intro: string;
+  tasks: Task[];
+};
+
+const milestones: Milestone[] = [
+  {
+    code: "J30",
+    name: "Jalon 30 jours",
+    title: "Revue à 30 jours après le lancement",
+    intro: "Premier point de contrôle des avis et de la trajectoire ASO.",
+    tasks: [
+      {
+        id: "j30-count",
+        lead: "Compter les avis App Store.",
+        note: "Objectif : plus de 50 dans les 30 premiers jours après le lancement de la 1.1.",
+      },
+      {
+        id: "j30-low",
+        lead: "Si moins de 30 : enquêter sur l'entonnoir d'invitation à l'avis.",
+        note: "Ajuster la logique de déclenchement.",
+      },
+      {
+        id: "j30-high",
+        lead: "Si plus de 50 : la trajectoire de classement ASO est verrouillée.",
+        note: "Maintenir la cadence.",
+      },
+      {
+        id: "j30-delta",
+        lead: "Décider de livrer l'import de sauvegarde depuis Delta en 1.1.1.",
+        note: "S'il a été repoussé de la 1.1.",
+      },
+      {
+        id: "j30-update",
+        lead: "Mettre à jour ce TODO avec les jalons du mois 2.",
+        note: "Sur la base des données réelles.",
+      },
+    ],
+  },
+  {
+    code: "J90",
+    name: "Jalon 90 jours",
+    title: "Revue à 90 jours après le lancement",
+    intro: "Bilan stratégique sur données de conversion réelles.",
+    tasks: [
+      { id: "j90-reviews", lead: "Objectif cumulé d'avis : plus de 200." },
+      {
+        id: "j90-rank",
+        lead: "Classement App Store FR pour « émulateur GBA » : top 3.",
+      },
+      {
+        id: "j90-reassess",
+        lead: "Réévaluer l'approche D par rapport aux alternatives.",
+        note: "Sur la base des données de conversion réelles.",
+      },
+      {
+        id: "j90-searchads",
+        lead: "Refaire le point Search Ads à 90 jours.",
+        note: "Si le diagnostic de la semaine 2 a donné un CPI supérieur à 3 € et que le plan a été revu.",
+      },
+    ],
+  },
+];
+
+const rotation = [
+  {
+    label: "1 h de contenu SEO sur retropal.fr",
+    note: "1 à 2 articles par mois. Strictement aucun contenu « Retro Pal contre Manic ».",
+  },
+  {
+    label: "1 h d'engagement Reddit au niveau des commentaires",
+    note: "Fils récurrents « quel émulateur choisir ». Commentaires uniquement, jamais de posts de lancement. Toujours divulguer l'affiliation.",
+  },
+  {
+    label: "1 h d'activité de marque Bluesky",
+    note: "2 posts par semaine maximum. Captures en carte de partage, réponses aux posts de nostalgie rétro.",
+  },
+  {
+    label: "1 h de peaufinage ASO, réponses aux avis, mise en avant",
+    note: "Données A/B de la page produit personnalisée. Proposition de mise en avant à chaque version mineure.",
+  },
+];
+
+const notInPlan = [
+  "Ne pas démarcher la presse. Voie (ii) choisie : réinvestir les heures dans du travail à effet cumulatif.",
+  "Ne pas publier d'annonces de lancement sur Reddit. Les comptes de marque y sont bannis automatiquement.",
+  "Ne pas écrire de contenu SEO « Retro Pal contre Manic ». Effet Streisand.",
+  "Ne pas lancer de TikTok au lancement. Risque DMCA et surcharge de cadence.",
+  "Ne pas ajouter d'autres consoles. Dérive de périmètre.",
+  "Ne pas exposer le nom du fondateur ailleurs que dans les mentions légales.",
+  "Ne pas livrer de popup de retour au premier lancement. Risque de rejet Apple.",
+  "Ne pas promouvoir la 1.0. La 1.1 est le lancement.",
+];
+
+const allTasks = [...weeks, ...milestones].flatMap((s) => s.tasks);
+const totalTasks = allTasks.length;
+const doneAtBuild = allTasks.filter((t) => t.done).length;
+---
+
+<BaseLayout
+  title="Feuille de route"
+  description="Tableau de bord interne du lancement de Retro Pal 1.1."
+  locale="fr"
+  noindex={true}
+>
+  <div class="page-shell board">
+    <!-- ============ Header ============ -->
+    <header class="board-head">
+      <p class="kicker">Tableau de bord · Document interne</p>
+      <h1 class="board-title">Avant le lancement</h1>
+      <p class="board-sub">
+        Feuille de route opérationnelle de <strong>Retro Pal 1.1</strong>.
+        Approche D : fondations d'abord, cadence ensuite. Le jour de sortie de
+        la 1.1 est le vrai lancement.
+      </p>
+    </header>
+
+    <!-- ============ Cockpit ============ -->
+    <section class="cockpit" aria-label="Vue d'ensemble">
+      <div class="cockpit-main">
+        <div class="gauge">
+          <span class="gauge-pct" id="globalPct">0</span><span
+            class="gauge-unit">%</span
+          >
+        </div>
+        <p class="gauge-caption">
+          <span id="doneCount">{doneAtBuild}</span> / <span id="totalCount"
+            >{totalTasks}</span
+          > tâches accomplies
+        </p>
+        <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-fill" id="globalFill"></div>
+        </div>
+      </div>
+
+      <div class="cockpit-stats">
+        <div class="stat">
+          <span class="stat-k">Semaine en cours</span>
+          <span class="stat-v" id="currentWeek">—</span>
+        </div>
+        <div class="stat">
+          <span class="stat-k">Lancement</span>
+          <span class="stat-v" id="countdown">—</span>
+        </div>
+        <div class="stat">
+          <span class="stat-k">Budget</span>
+          <span class="stat-v">0 €</span>
+        </div>
+        <div class="stat">
+          <span class="stat-k">Effort</span>
+          <span class="stat-v">4–5 h/sem</span>
+        </div>
+      </div>
+
+      <div class="strip" aria-hidden="true">
+        {
+          weeks.map((w) => (
+            <div class="strip-cell" data-strip={w.code}>
+              <div class="strip-track">
+                <div class="strip-fill" />
+              </div>
+              <span class="strip-label">{w.code}</span>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- ============ Context: constraints + plan ============ -->
+    <section class="context">
+      <div class="ctx-card">
+        <h2 class="ctx-h">Contraintes fermes</h2>
+        <ul class="ctx-list">
+          {constraints.map((c) => <li>{c}</li>)}
+        </ul>
+      </div>
+      <div class="ctx-card">
+        <h2 class="ctx-h">Plan de lancement</h2>
+        <ol class="ctx-steps">
+          {launchPlan.map((s) => <li>{s}</li>)}
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ Weeks ============ -->
+    <section class="timeline" aria-label="Calendrier hebdomadaire">
+      <h2 class="block-h"><span class="block-h-bar"></span>Calendrier semaine par semaine</h2>
+
+      {
+        weeks.map((w) => (
+          <details
+            class="week"
+            open
+            data-week={w.code}
+            data-start={w.range.start}
+            data-end={w.range.end}
+          >
+            <summary class="week-sum">
+              <span class="week-code">{w.code}</span>
+              <span class="week-id">
+                <span class="week-name">
+                  {w.name}
+                  <span class="week-now" hidden>
+                    En cours
+                  </span>
+                </span>
+                <span class="week-title">{w.title}</span>
+              </span>
+              <span class="week-meta">
+                <span class="week-dates">{w.dates}</span>
+                {w.effort && <span class="week-effort">{w.effort}</span>}
+              </span>
+              <span class="week-prog">
+                <span class="week-count" data-count={w.code}>
+                  0 / {w.tasks.length}
+                </span>
+                <span class="week-bar">
+                  <span class="week-bar-fill" />
+                </span>
+              </span>
+              <span class="week-chevron" aria-hidden="true">
+                ▾
+              </span>
+            </summary>
+
+            <div class="week-body">
+              {w.intro && <p class="week-intro">{w.intro}</p>}
+              {w.seqNote && (
+                <p class="week-seq">
+                  <strong>Séquencement.</strong>{" "}
+                  {w.seqNote.replace("Séquencement : ", "")}
+                </p>
+              )}
+              <ul class="tasks">
+                {w.tasks.map((t) => (
+                  <li class="task">
+                    <label class="task-label">
+                      <input
+                        type="checkbox"
+                        class="task-input"
+                        data-task={t.id}
+                        checked={t.done}
+                      />
+                      <span class="task-box" aria-hidden="true" />
+                      <span class="task-text">
+                        <span class="task-lead">{t.lead}</span>
+                        {t.note && <span class="task-note">{t.note}</span>}
+                      </span>
+                    </label>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </details>
+        ))
+      }
+    </section>
+
+    <!-- ============ Milestones ============ -->
+    <section class="milestones" aria-label="Jalons de revue">
+      <h2 class="block-h"><span class="block-h-bar"></span>Jalons de revue</h2>
+      <div class="milestone-grid">
+        {
+          milestones.map((m) => (
+            <details class="milestone" open data-week={m.code}>
+              <summary class="ms-sum">
+                <span class="ms-code">{m.code}</span>
+                <span class="ms-id">
+                  <span class="ms-name">{m.name}</span>
+                  <span class="ms-title">{m.title}</span>
+                </span>
+                <span class="week-count ms-count" data-count={m.code}>
+                  0 / {m.tasks.length}
+                </span>
+              </summary>
+              <div class="ms-body">
+                <p class="week-intro">{m.intro}</p>
+                <ul class="tasks">
+                  {m.tasks.map((t) => (
+                    <li class="task">
+                      <label class="task-label">
+                        <input
+                          type="checkbox"
+                          class="task-input"
+                          data-task={t.id}
+                          checked={t.done}
+                        />
+                        <span class="task-box" aria-hidden="true" />
+                        <span class="task-text">
+                          <span class="task-lead">{t.lead}</span>
+                          {t.note && <span class="task-note">{t.note}</span>}
+                        </span>
+                      </label>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </details>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- ============ Cadence S10+ ============ -->
+    <section class="cadence">
+      <h2 class="block-h"><span class="block-h-bar"></span>Semaine 10 et au-delà · cadence soutenue</h2>
+      <p class="cadence-intro">
+        Rotation hebdomadaire, environ 1 h chacune, 4 h par semaine au total.
+        Travail récurrent, sans case à cocher.
+      </p>
+      <div class="cadence-grid">
+        {
+          rotation.map((r, i) => (
+            <div class="cadence-card">
+              <span class="cadence-num">{String(i + 1).padStart(2, "0")}</span>
+              <p class="cadence-label">{r.label}</p>
+              <p class="cadence-note">{r.note}</p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- ============ Not in plan ============ -->
+    <section class="reject">
+      <div class="reject-stamp" aria-hidden="true">Rejeté</div>
+      <h2 class="reject-h">Ce qui n'est PAS dans ce plan</h2>
+      <p class="reject-intro">Résister à ces tentations. Chacune a été écartée pour une raison.</p>
+      <ul class="reject-list">
+        {notInPlan.map((n) => <li>{n}</li>)}
+      </ul>
+      <div class="reject-channels">
+        <h3 class="reject-sub">Canaux exclus du plan</h3>
+        <ul class="reject-list reject-list-tight">
+          {excludedChannels.map((c) => <li>{c}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ Footer note ============ -->
+    <footer class="board-foot">
+      <p>
+        <strong>Cases enregistrées dans ce navigateur uniquement.</strong> L'état
+        des cases vit dans le stockage local de cet appareil et de ce navigateur.
+        Il ne se synchronise pas entre appareils et n'est pas réécrit dans les
+        fichiers TODO du dépôt.
+      </p>
+      <p class="board-foot-actions">
+        <button type="button" id="resetBtn" class="reset-btn">Tout décocher</button>
+        <a href="/" class="reset-home">← Retour à retropal.fr</a>
+      </p>
+    </footer>
+  </div>
+</BaseLayout>
+
+<style>
+  .board {
+    padding-block: clamp(2rem, 4vw, 3.5rem) clamp(3rem, 6vw, 5rem);
+  }
+
+  /* ---------- Header ---------- */
+  .board-head {
+    margin-bottom: clamp(1.75rem, 3vw, 2.75rem);
+  }
+  .board-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.75rem, 6vw + 1rem, 5.25rem);
+    line-height: 0.95;
+    margin-top: 0.5rem;
+  }
+  .board-sub {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 1.1875rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 58ch;
+    margin-top: 0.85rem;
+  }
+  .board-sub strong {
+    font-style: normal;
+    color: var(--ink);
+  }
+
+  /* ---------- Cockpit ---------- */
+  .cockpit {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    gap: 0;
+    border: 2px solid var(--ink);
+    background: var(--paper-tint);
+    box-shadow: 7px 7px 0 var(--accent-dk);
+    margin-bottom: 2.5rem;
+  }
+  .cockpit-main {
+    padding: clamp(1.25rem, 3vw, 2rem);
+    border-right: 2px solid var(--ink);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .gauge {
+    display: flex;
+    align-items: baseline;
+    line-height: 0.8;
+    color: var(--accent-dk);
+  }
+  .gauge-pct {
+    font-family: var(--font-display);
+    font-size: clamp(4.5rem, 11vw, 7.5rem);
+  }
+  .gauge-unit {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-left: 0.15em;
+  }
+  .gauge-caption {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-top: 0.5rem;
+  }
+  .gauge-caption span {
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .progress {
+    margin-top: 1rem;
+    height: 22px;
+    border: 2px solid var(--ink);
+    background: var(--paper);
+    padding: 2px;
+  }
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--accent);
+    background-image: repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.28) 0,
+      rgba(255, 255, 255, 0.28) 2px,
+      transparent 2px,
+      transparent 9px
+    );
+    transition: width 420ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .cockpit-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 1fr;
+  }
+  .stat {
+    padding: clamp(0.9rem, 2vw, 1.35rem);
+    border-bottom: 2px solid var(--ink);
+    border-right: 2px solid var(--ink);
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  .stat:nth-child(2n) {
+    border-right: none;
+  }
+  .stat:nth-last-child(-n + 2) {
+    border-bottom: none;
+  }
+  .stat-k {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .stat-v {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 3vw, 2.25rem);
+    color: var(--ink);
+    line-height: 1;
+  }
+
+  .strip {
+    grid-column: 1 / -1;
+    border-top: 2px solid var(--ink);
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    background: var(--paper);
+  }
+  .strip-cell {
+    padding: 0.7rem 0.3rem 0.55rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    border-right: 1px solid var(--rule-soft);
+  }
+  .strip-cell:last-child {
+    border-right: none;
+  }
+  .strip-cell.is-current {
+    background: rgba(118, 37, 196, 0.12);
+  }
+  .strip-track {
+    width: 100%;
+    max-width: 30px;
+    height: 46px;
+    border: 2px solid var(--ink);
+    background: var(--paper);
+    display: flex;
+    align-items: flex-end;
+  }
+  .strip-fill {
+    width: 100%;
+    height: 0%;
+    background: var(--gb-green);
+    transition: height 420ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .strip-cell.is-complete .strip-fill {
+    background: var(--accent);
+  }
+  .strip-label {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--ink-faint);
+  }
+  .strip-cell.is-current .strip-label {
+    color: var(--accent-dk);
+    font-weight: 700;
+  }
+
+  /* ---------- Context ---------- */
+  .context {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-bottom: 2.75rem;
+  }
+  .ctx-card {
+    border: 1.5px solid var(--ink);
+    background: var(--paper);
+    padding: clamp(1.1rem, 2.5vw, 1.6rem);
+  }
+  .ctx-h {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    color: var(--ink);
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px dashed var(--rule);
+  }
+  .ctx-list,
+  .ctx-steps {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .ctx-list li,
+  .ctx-steps li {
+    font-family: var(--font-body);
+    font-size: 0.96rem;
+    line-height: 1.5;
+    color: var(--ink);
+    padding-left: 1.5rem;
+    position: relative;
+  }
+  .ctx-list li::before {
+    content: "▪";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+  .ctx-steps {
+    counter-reset: step;
+  }
+  .ctx-steps li {
+    counter-increment: step;
+  }
+  .ctx-steps li::before {
+    content: counter(step, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--accent-dk);
+  }
+
+  /* ---------- Block headings ---------- */
+  .block-h {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3vw, 2.4rem);
+    color: var(--ink);
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .block-h-bar {
+    display: inline-block;
+    width: 1.75rem;
+    height: 3px;
+    background: var(--accent);
+  }
+
+  /* ---------- Weeks ---------- */
+  .timeline {
+    margin-bottom: 2.75rem;
+  }
+  .week {
+    border: 1.5px solid var(--ink);
+    background: var(--paper);
+    margin-bottom: 0.9rem;
+  }
+  .week.is-complete {
+    background: var(--paper-tint);
+  }
+  .week.is-current {
+    box-shadow: 5px 5px 0 var(--accent);
+  }
+  .week-sum {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto auto auto;
+    align-items: center;
+    gap: clamp(0.6rem, 2vw, 1.25rem);
+    padding: 0.85rem clamp(0.85rem, 2vw, 1.25rem);
+    cursor: pointer;
+    list-style: none;
+  }
+  .week-sum::-webkit-details-marker {
+    display: none;
+  }
+  .week-code {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    line-height: 1;
+    color: var(--paper);
+    background: var(--ink);
+    padding: 0.2em 0.32em 0.1em;
+    min-width: 2.4em;
+    text-align: center;
+  }
+  .week.is-current .week-code {
+    background: var(--accent-dk);
+  }
+  .week.is-complete .week-code {
+    background: var(--gb-green-dk);
+  }
+  .week-id {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    min-width: 0;
+  }
+  .week-name {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .week-now {
+    background: var(--accent);
+    color: var(--paper);
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    padding: 0.15em 0.45em;
+    transform: rotate(-2deg);
+  }
+  .week-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.15rem, 2vw, 1.55rem);
+    color: var(--ink);
+    line-height: 1.1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .week-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.2rem;
+    text-align: right;
+  }
+  .week-dates {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+  .week-effort {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.06em;
+    color: var(--ink-faint);
+  }
+  .week-prog {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    width: 84px;
+  }
+  .week-count {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 500;
+    color: var(--ink);
+    text-align: right;
+  }
+  .week-bar {
+    height: 7px;
+    border: 1.5px solid var(--ink);
+    background: var(--paper);
+    display: block;
+  }
+  .week-bar-fill {
+    display: block;
+    height: 100%;
+    width: 0%;
+    background: var(--gb-green);
+    transition: width 360ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .week.is-complete .week-bar-fill {
+    background: var(--accent);
+  }
+  .week-chevron {
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    transition: transform 200ms ease;
+  }
+  .week[open] .week-chevron {
+    transform: rotate(180deg);
+  }
+
+  .week-body {
+    padding: 0 clamp(0.85rem, 2vw, 1.25rem) 1rem;
+    border-top: 1px dashed var(--rule);
+  }
+  .week-intro {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    margin: 0.9rem 0 0.5rem;
+    max-width: 70ch;
+  }
+  .week-seq {
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: var(--ink);
+    background: rgba(217, 65, 43, 0.08);
+    border-left: 3px solid var(--alert-red);
+    padding: 0.6rem 0.85rem;
+    margin: 0.85rem 0 0.4rem;
+    max-width: 72ch;
+  }
+  .week-seq strong {
+    color: var(--alert-red);
+  }
+
+  /* ---------- Tasks ---------- */
+  .tasks {
+    list-style: none;
+    margin: 0.5rem 0 0;
+    padding: 0;
+  }
+  .task {
+    border-top: 1px solid var(--rule-soft);
+  }
+  .task:first-child {
+    border-top: none;
+  }
+  .task-label {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.85rem;
+    align-items: start;
+    padding: 0.8rem 0.15rem;
+    cursor: pointer;
+  }
+  .task-input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+  }
+  .task-box {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--ink);
+    background: var(--paper);
+    margin-top: 1px;
+    flex-shrink: 0;
+    position: relative;
+    transition: background-color 120ms ease;
+  }
+  .task-box::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    background: var(--gb-green-dk);
+    clip-path: polygon(
+      14% 44%,
+      0 58%,
+      40% 100%,
+      100% 22%,
+      86% 8%,
+      40% 70%
+    );
+    opacity: 0;
+    transform: scale(0.4);
+    transition:
+      opacity 130ms ease,
+      transform 160ms cubic-bezier(0.2, 0.8, 0.2, 1.4);
+  }
+  .task-input:checked ~ .task-box {
+    background: var(--gb-green);
+  }
+  .task-input:checked ~ .task-box::after {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .task-input:focus-visible ~ .task-box {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .task-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
+  }
+  .task-lead {
+    font-family: var(--font-body);
+    font-size: 1.02rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--ink);
+  }
+  .task-note {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+  .task-input:checked ~ .task-text .task-lead {
+    text-decoration: line-through;
+    text-decoration-color: var(--ink-faint);
+    color: var(--ink-faint);
+  }
+  .task-input:checked ~ .task-text .task-note {
+    color: var(--ink-faint);
+  }
+  .task-label:hover .task-box {
+    background: var(--paper-deep);
+  }
+  .task-input:checked ~ .task-box:hover,
+  .task-label:hover .task-input:checked ~ .task-box {
+    background: var(--gb-green);
+  }
+
+  /* ---------- Milestones ---------- */
+  .milestones {
+    margin-bottom: 2.75rem;
+  }
+  .milestone-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+  .milestone {
+    border: 1.5px solid var(--ink);
+    background: var(--paper);
+    box-shadow: 4px 4px 0 var(--gold-pro-dk);
+  }
+  .ms-sum {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.85rem 1rem;
+    cursor: pointer;
+    list-style: none;
+    background: var(--gold-pro);
+  }
+  .ms-sum::-webkit-details-marker {
+    display: none;
+  }
+  .ms-code {
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    line-height: 1;
+    color: var(--gold-pro);
+    background: var(--ink);
+    padding: 0.18em 0.34em 0.08em;
+  }
+  .ms-id {
+    display: flex;
+    flex-direction: column;
+  }
+  .ms-name {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold-pro-dk);
+  }
+  .ms-title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    color: var(--ink);
+    line-height: 1.1;
+  }
+  .ms-count {
+    color: var(--ink);
+  }
+  .ms-body {
+    padding: 0 1rem 1rem;
+  }
+
+  /* ---------- Cadence ---------- */
+  .cadence {
+    margin-bottom: 2.75rem;
+  }
+  .cadence-intro {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--ink-soft);
+    margin-bottom: 1.1rem;
+    max-width: 64ch;
+  }
+  .cadence-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+  .cadence-card {
+    border: 1.5px solid var(--rule);
+    background: var(--paper);
+    padding: 1rem;
+    border-top: 4px solid var(--accent);
+  }
+  .cadence-num {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+  }
+  .cadence-label {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    line-height: 1.15;
+    color: var(--ink);
+    margin: 0.35rem 0 0.5rem;
+  }
+  .cadence-note {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Reject panel ---------- */
+  .reject {
+    position: relative;
+    border: 2px solid var(--alert-red);
+    background: var(--paper);
+    padding: clamp(1.4rem, 3vw, 2.25rem);
+    margin-bottom: 2.5rem;
+    overflow: hidden;
+  }
+  .reject-stamp {
+    position: absolute;
+    top: 1.1rem;
+    right: -0.5rem;
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    color: rgba(217, 65, 43, 0.18);
+    border: 4px solid rgba(217, 65, 43, 0.18);
+    padding: 0.05em 0.3em;
+    transform: rotate(-9deg);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    pointer-events: none;
+    user-select: none;
+  }
+  .reject-h {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 3vw, 2.3rem);
+    color: var(--alert-red);
+    position: relative;
+  }
+  .reject-intro {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    margin: 0.4rem 0 1.1rem;
+  }
+  .reject-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.55rem 1.5rem;
+  }
+  .reject-list li {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    line-height: 1.45;
+    color: var(--ink);
+    padding-left: 1.6rem;
+    position: relative;
+  }
+  .reject-list li::before {
+    content: "✕";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--alert-red);
+  }
+  .reject-channels {
+    margin-top: 1.5rem;
+    padding-top: 1.1rem;
+    border-top: 1px dashed rgba(217, 65, 43, 0.4);
+  }
+  .reject-sub {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--alert-red);
+    margin-bottom: 0.7rem;
+  }
+  .reject-list-tight {
+    gap: 0.45rem 1.5rem;
+  }
+
+  /* ---------- Footer ---------- */
+  .board-foot {
+    border-top: 1px dashed var(--rule);
+    padding-top: 1.4rem;
+  }
+  .board-foot p {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 72ch;
+  }
+  .board-foot strong {
+    color: var(--ink);
+  }
+  .board-foot-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem;
+    margin-top: 1rem;
+  }
+  .reset-btn {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1.5px solid var(--ink);
+    padding: 0.5rem 0.9rem;
+    transition: background-color 120ms ease;
+  }
+  .reset-btn:hover {
+    background: var(--paper-deep);
+  }
+  .reset-home {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-dk);
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 1px;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 860px) {
+    .cockpit {
+      grid-template-columns: 1fr;
+    }
+    .cockpit-main {
+      border-right: none;
+      border-bottom: 2px solid var(--ink);
+    }
+    .context,
+    .milestone-grid {
+      grid-template-columns: 1fr;
+    }
+    .cadence-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .reject-list {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 600px) {
+    .week-sum {
+      grid-template-columns: auto 1fr auto;
+      grid-template-areas:
+        "code id chevron"
+        "meta meta meta"
+        "prog prog prog";
+      row-gap: 0.6rem;
+    }
+    .week-code {
+      grid-area: code;
+    }
+    .week-id {
+      grid-area: id;
+    }
+    .week-meta {
+      grid-area: meta;
+      flex-direction: row;
+      align-items: center;
+      gap: 0.75rem;
+      text-align: left;
+    }
+    .week-prog {
+      grid-area: prog;
+      width: 100%;
+    }
+    .week-count {
+      text-align: left;
+    }
+    .week-chevron {
+      grid-area: chevron;
+    }
+    .cadence-grid {
+      grid-template-columns: 1fr;
+    }
+    .strip-cell {
+      padding-inline: 0.15rem;
+    }
+  }
+</style>
+
+<script>
+  // ---- Self-persisting checklist (localStorage, per browser) ----
+  const KEY = "retropal-todo-v1";
+  const LAUNCH = new Date("2026-07-10T00:00:00");
+
+  type State = Record<string, boolean>;
+
+  function loadState(): State {
+    try {
+      return JSON.parse(localStorage.getItem(KEY) || "{}") as State;
+    } catch {
+      return {};
+    }
+  }
+  function saveState(s: State) {
+    try {
+      localStorage.setItem(KEY, JSON.stringify(s));
+    } catch {
+      /* storage unavailable, ignore */
+    }
+  }
+
+  const state = loadState();
+  const boxes = Array.from(
+    document.querySelectorAll<HTMLInputElement>("input.task-input"),
+  );
+
+  // Restore: localStorage wins over the HTML default when a key exists.
+  for (const box of boxes) {
+    const id = box.dataset.task!;
+    if (id in state) box.checked = state[id];
+  }
+
+  function pct(done: number, total: number): number {
+    return total === 0 ? 0 : Math.round((done / total) * 100);
+  }
+
+  function refresh() {
+    // Global
+    const done = boxes.filter((b) => b.checked).length;
+    const total = boxes.length;
+    const p = pct(done, total);
+    document.getElementById("globalPct")!.textContent = String(p);
+    document.getElementById("doneCount")!.textContent = String(done);
+    document.getElementById("totalCount")!.textContent = String(total);
+    (document.getElementById("globalFill") as HTMLElement).style.width = p + "%";
+    const bar = document.querySelector(".progress");
+    if (bar) bar.setAttribute("aria-valuenow", String(p));
+
+    // Per section (weeks + milestones share data-week / data-count)
+    document
+      .querySelectorAll<HTMLElement>("[data-week]")
+      .forEach((section) => {
+        const code = section.dataset.week!;
+        const inputs = Array.from(
+          section.querySelectorAll<HTMLInputElement>("input.task-input"),
+        );
+        const d = inputs.filter((b) => b.checked).length;
+        const t = inputs.length;
+        const countEl = document.querySelector(
+          `.week-count[data-count="${code}"]`,
+        );
+        if (countEl) countEl.textContent = `${d} / ${t}`;
+        const fill = section.querySelector<HTMLElement>(".week-bar-fill");
+        if (fill) fill.style.width = pct(d, t) + "%";
+        section.classList.toggle("is-complete", t > 0 && d === t);
+
+        // Week strip cell
+        const cell = document.querySelector<HTMLElement>(
+          `.strip-cell[data-strip="${code}"]`,
+        );
+        if (cell) {
+          const sf = cell.querySelector<HTMLElement>(".strip-fill");
+          if (sf) sf.style.height = pct(d, t) + "%";
+          cell.classList.toggle("is-complete", t > 0 && d === t);
+        }
+      });
+  }
+
+  for (const box of boxes) {
+    box.addEventListener("change", () => {
+      state[box.dataset.task!] = box.checked;
+      saveState(state);
+      refresh();
+    });
+  }
+
+  // ---- Current week + launch countdown ----
+  function markCurrentWeek() {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    let currentName = "Avant S1";
+    document
+      .querySelectorAll<HTMLElement>(".week[data-start]")
+      .forEach((wk) => {
+        const start = new Date(wk.dataset.start + "T00:00:00");
+        const end = new Date(wk.dataset.end + "T23:59:59");
+        if (today >= start && today <= end) {
+          wk.classList.add("is-current");
+          const badge = wk.querySelector<HTMLElement>(".week-now");
+          if (badge) badge.hidden = false;
+          const nameEl = wk.querySelector(".week-title");
+          currentName = wk.dataset.week + " · " + (nameEl?.textContent ?? "");
+          const cell = document.querySelector(
+            `.strip-cell[data-strip="${wk.dataset.week}"]`,
+          );
+          cell?.classList.add("is-current");
+        }
+      });
+    document.getElementById("currentWeek")!.textContent =
+      currentName.length > 22 ? currentName.slice(0, 21) + "…" : currentName;
+  }
+
+  function showCountdown() {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const days = Math.round(
+      (LAUNCH.getTime() - today.getTime()) / 86_400_000,
+    );
+    const el = document.getElementById("countdown")!;
+    if (days > 1) el.textContent = "J−" + days;
+    else if (days === 1) el.textContent = "Demain";
+    else if (days === 0) el.textContent = "Jour J";
+    else el.textContent = "Lancé";
+  }
+
+  // ---- Reset ----
+  document.getElementById("resetBtn")?.addEventListener("click", () => {
+    if (!confirm("Décocher toutes les cases sur cet appareil ?")) return;
+    for (const box of boxes) box.checked = false;
+    for (const k of Object.keys(state)) delete state[k];
+    saveState(state);
+    refresh();
+  });
+
+  markCurrentWeek();
+  showCountdown();
+  refresh();
+</script>
