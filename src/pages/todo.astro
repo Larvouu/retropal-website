@@ -11,7 +11,7 @@
  */
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-const LAUNCH_DATE = "2026-07-10"; // Semaine 9, Jour 0
+const LAUNCH_DATE = "2026-07-06"; // Semaine 9, Jour 0
 
 const constraints = [
   "Budget de 0 €, sauf un test diagnostique Apple Search Ads de 20 à 50 € en semaine 2.",
@@ -55,8 +55,8 @@ const weeks: Week[] = [
     code: "S0",
     name: "Semaine 0",
     title: "Prérequis avant la semaine 1",
-    dates: "Avant le 15 mai",
-    range: { start: "2026-05-01", end: "2026-05-14" },
+    dates: "Avant le 11 mai",
+    range: { start: "2026-05-04", end: "2026-05-10" },
     intro:
       "À faire AVANT de commencer la semaine 1. Ces tâches débloquent le travail en aval et évitent les mauvaises surprises en cours de fondations.",
     tasks: [
@@ -90,8 +90,8 @@ const weeks: Week[] = [
     code: "S1",
     name: "Semaine 1",
     title: "Mise en place et recherche",
-    dates: "15 → 21 mai",
-    range: { start: "2026-05-15", end: "2026-05-21" },
+    dates: "11 → 17 mai",
+    range: { start: "2026-05-11", end: "2026-05-17" },
     effort: "≈ 5 h",
     tasks: [
       {
@@ -130,8 +130,8 @@ const weeks: Week[] = [
     code: "S2",
     name: "Semaine 2",
     title: "Cible de tests, manette, ASO, Search Ads",
-    dates: "22 → 28 mai",
-    range: { start: "2026-05-22", end: "2026-05-28" },
+    dates: "18 → 24 mai",
+    range: { start: "2026-05-18", end: "2026-05-24" },
     effort: "≈ 5 h",
     tasks: [
       {
@@ -170,8 +170,8 @@ const weeks: Week[] = [
     code: "S3",
     name: "Semaine 3",
     title: "Refactorisation SaveStateManager et tests",
-    dates: "29 mai → 4 juin",
-    range: { start: "2026-05-29", end: "2026-06-04" },
+    dates: "25 → 31 mai",
+    range: { start: "2026-05-25", end: "2026-05-31" },
     effort: "≈ 5 h",
     seqNote:
       "Séquencement : la refactorisation NSFileCoordinator de SaveStateManager (Chantier C) DOIT être livrée avant le hook recordSaveStateCreated() du Chantier A. L'ordre compte.",
@@ -197,8 +197,8 @@ const weeks: Week[] = [
     code: "S4",
     name: "Semaine 4",
     title: "Synchronisation iCloud et page produit",
-    dates: "5 → 11 juin",
-    range: { start: "2026-06-05", end: "2026-06-11" },
+    dates: "1 → 7 juin",
+    range: { start: "2026-06-01", end: "2026-06-07" },
     effort: "≈ 5 h",
     tasks: [
       {
@@ -222,8 +222,8 @@ const weeks: Week[] = [
     code: "S5",
     name: "Semaine 5",
     title: "Import .sav Manic, PromptTracker, tests, Folium",
-    dates: "12 → 18 juin",
-    range: { start: "2026-06-12", end: "2026-06-18" },
+    dates: "8 → 14 juin",
+    range: { start: "2026-06-08", end: "2026-06-14" },
     effort: "≈ 5 h",
     tasks: [
       {
@@ -257,8 +257,8 @@ const weeks: Week[] = [
     code: "S6",
     name: "Semaine 6",
     title: "Bêta TestFlight et mise en avant",
-    dates: "19 → 25 juin",
-    range: { start: "2026-06-19", end: "2026-06-25" },
+    dates: "15 → 21 juin",
+    range: { start: "2026-06-15", end: "2026-06-21" },
     effort: "≈ 5 h",
     tasks: [
       {
@@ -291,8 +291,8 @@ const weeks: Week[] = [
     code: "S7",
     name: "Semaine 7",
     title: "Fin de bêta et soumission 1.1",
-    dates: "26 juin → 2 juillet",
-    range: { start: "2026-06-26", end: "2026-07-02" },
+    dates: "22 → 28 juin",
+    range: { start: "2026-06-22", end: "2026-06-28" },
     effort: "≈ 5 h",
     tasks: [
       {
@@ -326,8 +326,8 @@ const weeks: Week[] = [
     code: "S8",
     name: "Semaine 8",
     title: "Attente revue Apple et préparation",
-    dates: "3 → 9 juillet",
-    range: { start: "2026-07-03", end: "2026-07-09" },
+    dates: "29 juin → 5 juillet",
+    range: { start: "2026-06-29", end: "2026-07-05" },
     effort: "≈ 3 h",
     tasks: [
       {
@@ -356,8 +356,8 @@ const weeks: Week[] = [
     code: "S9",
     name: "Semaine 9",
     title: "Lancement de la 1.1",
-    dates: "10 → 16 juillet",
-    range: { start: "2026-07-10", end: "2026-07-16" },
+    dates: "6 → 12 juillet",
+    range: { start: "2026-07-06", end: "2026-07-12" },
     effort: "≈ 5 h",
     tasks: [
       {
@@ -1553,7 +1553,7 @@ const doneAtBuild = allTasks.filter((t) => t.done).length;
 <script>
   // ---- Self-persisting checklist (localStorage, per browser) ----
   const KEY = "retropal-todo-v1";
-  const LAUNCH = new Date("2026-07-10T00:00:00");
+  const LAUNCH = new Date("2026-07-06T00:00:00");
 
   type State = Record<string, boolean>;
 
@@ -1627,6 +1627,8 @@ const doneAtBuild = allTasks.filter((t) => t.done).length;
           cell.classList.toggle("is-complete", t > 0 && d === t);
         }
       });
+
+    markCurrentWeek();
   }
 
   for (const box of boxes) {
@@ -1637,30 +1639,35 @@ const doneAtBuild = allTasks.filter((t) => t.done).length;
     });
   }
 
-  // ---- Current week + launch countdown ----
+  // ---- Current week = first week with an unchecked task ----
   function markCurrentWeek() {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    let currentName = "Avant S1";
     document
-      .querySelectorAll<HTMLElement>(".week[data-start]")
-      .forEach((wk) => {
-        const start = new Date(wk.dataset.start + "T00:00:00");
-        const end = new Date(wk.dataset.end + "T23:59:59");
-        if (today >= start && today <= end) {
-          wk.classList.add("is-current");
-          const badge = wk.querySelector<HTMLElement>(".week-now");
-          if (badge) badge.hidden = false;
-          const nameEl = wk.querySelector(".week-title");
-          currentName = wk.dataset.week + " · " + (nameEl?.textContent ?? "");
-          const cell = document.querySelector(
-            `.strip-cell[data-strip="${wk.dataset.week}"]`,
-          );
-          cell?.classList.add("is-current");
-        }
-      });
-    document.getElementById("currentWeek")!.textContent =
-      currentName.length > 22 ? currentName.slice(0, 21) + "…" : currentName;
+      .querySelectorAll(".week.is-current, .strip-cell.is-current")
+      .forEach((el) => el.classList.remove("is-current"));
+    document
+      .querySelectorAll<HTMLElement>(".week-now")
+      .forEach((b) => (b.hidden = true));
+
+    const weekEls = Array.from(document.querySelectorAll<HTMLElement>(".week"));
+    const current = weekEls.find((wk) => {
+      const inputs = wk.querySelectorAll<HTMLInputElement>("input.task-input");
+      return inputs.length === 0 || !Array.from(inputs).every((b) => b.checked);
+    });
+
+    const label = document.getElementById("currentWeek")!;
+    if (!current) {
+      label.textContent = "Terminé";
+      return;
+    }
+    current.classList.add("is-current");
+    const badge = current.querySelector<HTMLElement>(".week-now");
+    if (badge) badge.hidden = false;
+    document
+      .querySelector(`.strip-cell[data-strip="${current.dataset.week}"]`)
+      ?.classList.add("is-current");
+    const nameEl = current.querySelector(".week-title");
+    const name = current.dataset.week + " · " + (nameEl?.textContent ?? "");
+    label.textContent = name.length > 22 ? name.slice(0, 21) + "…" : name;
   }
 
   function showCountdown() {
@@ -1685,7 +1692,6 @@ const doneAtBuild = allTasks.filter((t) => t.done).length;
     refresh();
   });
 
-  markCurrentWeek();
   showCountdown();
   refresh();
 </script>
