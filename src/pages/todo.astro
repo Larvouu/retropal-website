@@ -62,21 +62,25 @@ const weeks: Week[] = [
     tasks: [
       {
         id: "s0-icloud",
+        done: true,
         lead: "Vérifier que la fonctionnalité iCloud Documents est activée sur l'App ID com.retropal.",
         note: "Portail développeur Apple, section Identifiants. Si la case iCloud n'est pas cochée : activer la fonctionnalité, régénérer le profil de provisionnement, puis réarchiver. Environ 1 h si nécessaire, 5 min juste pour vérifier.",
       },
       {
         id: "s0-manic-sav",
+        done: true,
         lead: "Récupérer un fichier .sav d'exemple depuis Manic.",
         note: "Exporter une sauvegarde Pokémon depuis Manic, sur TestFlight ou sur l'appareil d'un ami. Enregistrer dans Vendor/test-fixtures/manic-pokemon.sav. Sans un vrai export, la rétro-ingénierie de ManicSaveImporter est bloquée.",
       },
       {
         id: "s0-cpi",
+        done: true,
         lead: "Écrire noir sur blanc le critère d'arrêt des Apple Search Ads.",
         note: "CPI supérieur à 3 € maintenu pendant 7 jours = mettre les annonces en pause, livrer la 1.1 sur le trafic organique, reconsidérer le paiement après la 1.1.1. Pré-décider avant la semaine 2 évite le biais des coûts irrécupérables.",
       },
       {
         id: "s0-testplan",
+        done: true,
         lead: "Lire le plan de test et parcourir les révisions du document de conception.",
         note: "Plan de test : root-main-eng-review-test-plan-20260515-143511.md.",
       },
@@ -98,21 +102,25 @@ const weeks: Week[] = [
       },
       {
         id: "s1-zoho",
-        lead: "Configurer la messagerie gratuite Zoho pour retropal.fr.",
+        done: true,
+        lead: "Configurer la messagerie Zoho pour retropal.fr (Mail Lite).",
         note: "Enregistrements DNS via Cloudflare, environ 30 min. Activer l'envoi depuis support@retropal.fr et press@retropal.fr. Tester la délivrabilité.",
       },
       {
         id: "s1-reddit",
-        lead: "Réserver le pseudo Reddit u/retropal.",
+        done: true,
+        lead: "Réserver le pseudo Reddit u/retropal_app.",
         note: "Bio « Retro Pal, émulateur Nintendo portable iOS ». Ne rien publier pour l'instant.",
       },
       {
         id: "s1-manic-format",
+        done: true,
         lead: "Cadrer le format d'export des sauvegardes de Manic.",
         note: "Installer Manic, trouver l'option d'export, documenter le format binaire. Déterminer si le format de Delta est assez proche pour l'ajouter à moindre coût en 1.1, ou le repousser en 1.1.1. Environ 2 h.",
       },
       {
         id: "s1-aso-research",
+        done: true,
         lead: "Démarrer la recherche de mots-clés ASO pour le marché FR.",
         note: "App Store Connect search analytics et offre gratuite d'AppFollow. Liste de candidats pour le champ « Mots-clés » de 100 caractères. Uniquement des termes de trafic pur, pas de langage de positionnement. Environ 2 h.",
       },
@@ -126,6 +134,11 @@ const weeks: Week[] = [
     range: { start: "2026-05-22", end: "2026-05-28" },
     effort: "≈ 5 h",
     tasks: [
+      {
+        id: "s2-appname",
+        lead: "Étendre le nom de l'application sur l'App Store.",
+        note: "« Retro Pal » seul n'utilise que 9 des 30 caractères du champ le plus pondéré de l'ASO. L'étendre, par exemple « Retro Pal : Émulateur GBA, DS », en menant avec DS (la demande DS dépasse celle du GBA). Voir Store/ASOResearch/keyword-research-fr.md.",
+      },
       {
         id: "s2-testtarget",
         lead: "Mettre en place la cible de tests unitaires Xcode EmulateurGBATests.",
