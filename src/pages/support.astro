@@ -18,7 +18,7 @@ const faq = [
   },
   {
     q: "Mon jeu ne se lance pas, qu'est-ce qui se passe ?",
-    a: "Le plus souvent : ROM mal extrait du .zip, fichier corrompu, ou format incompatible (.gba.bin renommé). Essaye d'abord avec un autre ROM connu pour fonctionner. Si plusieurs ROMs ne se lancent pas, écris-moi à " + SUPPORT_EMAIL + " avec le nom du jeu, la console et la version de Retro Pal.",
+    a: "Le plus souvent : ROM mal extrait du .zip, fichier corrompu, ou format incompatible (.gba.bin renommé). Essaye d'abord avec un autre ROM connu pour fonctionner. Si plusieurs ROMs ne se lancent pas, écris-nous à " + SUPPORT_EMAIL + " avec le nom du jeu, la console et la version de Retro Pal.",
   },
   {
     q: "Comment annuler l'abonnement Pro mensuel ?",
@@ -55,14 +55,14 @@ const faq = [
     <LegalHeader
       kicker="Support"
       title="Aide & contact"
-      intro="Retro Pal est développé par une seule personne. Si tu ne trouves pas ta réponse ici, écris-moi directement. Je lis tout, je réponds dans la journée."
+      intro="Si tu ne trouves pas ta réponse ici, écris-nous directement. On lit tout, on répond dans la journée."
     />
 
     <section class="contact-block">
       <p class="contact-eyebrow">Contact direct</p>
       <a class="contact-email" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
       <p class="contact-note">
-        Une seule adresse, une seule personne. Pas de ticket, pas de chatbot.
+        Une seule adresse. Pas de ticket, pas de chatbot.
       </p>
     </section>
 
@@ -89,7 +89,7 @@ const faq = [
       <p>
         Une question pas listée ?
         <a href={`mailto:${SUPPORT_EMAIL}`}>Écris à {SUPPORT_EMAIL}</a>,
-        je réponds personnellement.
+        on te répond.
       </p>
     </section>
   </div>
