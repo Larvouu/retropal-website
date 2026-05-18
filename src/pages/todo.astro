@@ -11,22 +11,20 @@
  */
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-const LAUNCH_DATE = "2026-07-06"; // Semaine 9, Jour 0
-
 const constraints = [
-  "Budget de 0 €, sauf un test diagnostique Apple Search Ads de 20 à 50 € en semaine 2.",
-  "Environ 4 à 5 h par semaine, de façon soutenue.",
+  "Budget de 0 €, sauf un test diagnostique Apple Search Ads de 20 à 50 €, mené au lancement.",
+  "Environ 4 à 5 h par semaine, de façon soutenue, les pics occasionnels étant absorbés.",
   "Voix de marque anonyme : le nom du fondateur n'apparaît que dans les mentions légales.",
   "Développeur solo, pas d'équipe.",
 ];
 
 const launchPlan = [
-  "La build 1.0(2) est en revue App Store. La laisser être approuvée, puis suspendre la diffusion (ne pas la publier).",
-  "Semaines 1 à 6 : construire la 1.1 avec le kit de fondations complet (manette, synchronisation iCloud, import de sauvegardes Manic, ASO peaufiné, vélocité des avis, messagerie Zoho).",
-  "Bêta TestFlight de la 1.1 avec 5 amis de la cohorte de bêta non réalisée, en semaines 5 et 6.",
-  "Soumettre la 1.1 à la revue App Store à la fin de la semaine 6.",
+  "La build 1.0(2) est maintenue à l'état approuvée mais non diffusée, gardée volontairement hors de la boutique jusqu'à la 1.1.",
+  "Le cycle de fondations construit la 1.1 avec le kit complet : manette, synchronisation iCloud, import des sauvegardes de batterie, ASO peaufiné, vélocité des avis, messagerie Zoho.",
+  "Bêta TestFlight de la 1.1 avec 5 amis de la cohorte de bêta non réalisée.",
+  "Soumettre la 1.1 à la revue App Store.",
   "Le jour de sortie de la 1.1 est le vrai lancement. Toute la promotion se déclenche à ce moment.",
-  "Cadence soutenue de 4 h par semaine à partir de la semaine 9.",
+  "Cadence soutenue d'environ 4 h par semaine ensuite.",
 ];
 
 const excludedChannels = [
@@ -136,33 +134,39 @@ const weeks: Week[] = [
     tasks: [
       {
         id: "s2-appname",
+        done: true,
         lead: "Étendre le nom de l'application sur l'App Store.",
-        note: "« Retro Pal » seul n'utilise que 9 des 30 caractères du champ le plus pondéré de l'ASO. L'étendre, par exemple « Retro Pal : Émulateur GBA, DS », en menant avec DS (la demande DS dépasse celle du GBA). Voir Store/ASOResearch/keyword-research-fr.md.",
+        note: "Choisi : « Retro Pal - Emulateur GBA, DS ». Le nom porte les termes de trafic à forte pondération. Saisi dans App Store Connect en semaine 7. Voir Store/ASOResearch/aso-fr-rebuild.md.",
       },
       {
         id: "s2-testtarget",
+        done: true,
         lead: "Mettre en place la cible de tests unitaires Xcode EmulateurGBATests.",
-        note: "Environ 1 h. Aucune dépendance SPM pour la v1, XCTest uniquement. La dépendance de tests par capture est repoussée (TODO-2).",
+        note: "Aucune dépendance SPM pour la v1, XCTest uniquement. La dépendance de tests par capture est repoussée (TODO-2).",
       },
       {
         id: "s2-prompttracker",
+        done: true,
         lead: "Refactoriser PromptTracker pour accepter un UserDefaults injectable.",
-        note: "Environ 30 min. Nécessaire pour la testabilité unitaire.",
+        note: "Nécessaire pour la testabilité unitaire.",
       },
       {
         id: "s2-controller",
+        done: true,
         lead: "Implémenter la prise en charge des manettes extendedGamepad.",
-        note: "Environ 3 h, Chantier B. Extraire un protocole ControllerInputSource depuis ControllerManager. Masquer les commandes tactiles quand une manette est connectée.",
+        note: "Chantier B. Protocole ControllerInputSource extrait depuis ControllerManager. Les commandes tactiles se masquent quand une manette est connectée.",
       },
       {
         id: "s2-aso-fr",
+        done: true,
         lead: "Rédiger le brouillon de refonte ASO FR.",
-        note: "Environ 2 h. Sous-titre (30 car.), mots-clés (100 car. de trafic pur), texte promotionnel (170 car.), description complète. Ne jamais mentionner Pokémon, Mario, Zelda ou une marque précise.",
+        note: "Sous-titre, mots-clés, texte promotionnel, description complète. Résultat : Store/ASOResearch/aso-fr-rebuild.md.",
       },
       {
         id: "s2-searchads",
-        lead: "Créer le compte Apple Search Ads et une campagne diagnostique de 20 à 50 €.",
-        note: "Environ 1 h. Mots-clés : « émulateur gba », « manic emu », « émulateur iphone ». 7 jours. Verrou ferme : CPI supérieur à 3 € maintenu = mise en pause, livraison sur l'organique.",
+        done: true,
+        lead: "Préparer la spécification de la campagne diagnostique Apple Search Ads.",
+        note: "Spécification prête dans Store/ASOResearch/apple-search-ads-diagnostic-spec.md. La campagne elle-même est reportée à la semaine 9 : Apple Search Ads exige une application déjà en ligne sur l'App Store, et la 1.0 est suspendue.",
       },
     ],
   },
@@ -196,7 +200,7 @@ const weeks: Week[] = [
   {
     code: "S4",
     name: "Semaine 4",
-    title: "Synchronisation iCloud et page produit",
+    title: "Synchronisation iCloud",
     dates: "1 → 7 juin",
     range: { start: "2026-06-01", end: "2026-06-07" },
     effort: "≈ 5 h",
@@ -206,30 +210,20 @@ const weeks: Week[] = [
         lead: "Implémenter iCloudSaveSync au-dessus du SaveStateManager refactorisé.",
         note: "Environ 5 h, Chantier C. Présentateur NSFilePresenter de longue durée. Résolution de conflit « la date la plus récente gagne ». Bascule silencieuse en local seul si iCloud est indisponible. Exposer l'état dans les Réglages.",
       },
-      {
-        id: "s4-cpp",
-        lead: "Mettre en place une page produit personnalisée dans App Store Connect.",
-        note: "Environ 90 min. Une page alternative ciblant le groupe de mots-clés FR autour des consoles portables rétro.",
-      },
-      {
-        id: "s4-searchads-review",
-        lead: "Examiner les résultats du diagnostic Apple Search Ads.",
-        note: "Point de décision selon le critère d'arrêt fixé en semaine 0.",
-      },
     ],
   },
   {
     code: "S5",
     name: "Semaine 5",
-    title: "Import .sav Manic, PromptTracker, tests, Folium",
+    title: "Import des sauvegardes, PromptTracker, tests, Folium",
     dates: "8 → 14 juin",
     range: { start: "2026-06-08", end: "2026-06-14" },
-    effort: "≈ 5 h",
+    effort: "≈ 8 h",
     tasks: [
       {
         id: "s5-manic-import",
-        lead: "Implémenter ManicSaveImporter pour le .sav uniquement.",
-        note: "Environ 3 h, Chantier C. Analyser l'en-tête Manic, mapper vers le schéma interne, gérer les erreurs. L'import de sauvegarde d'état complète est repoussé en 1.1.1 (TODO-4).",
+        lead: "Implémenter l'import des sauvegardes de batterie (.sav et .srm).",
+        note: "Environ 3 h, Chantier C. Ces fichiers sont de la RAM de sauvegarde brute, indépendants de l'émulateur : le même import fonctionne pour Manic, Delta, OpenEmu, RetroArch et d'autres. Router par taille, extension et signature. Rejeter les ROM et les sauvegardes d'état avec une erreur claire en français. Les sauvegardes d'état restent hors périmètre de la 1.1.",
       },
       {
         id: "s5-prompttracker-engaged",
@@ -259,7 +253,7 @@ const weeks: Week[] = [
     title: "Bêta TestFlight et mise en avant",
     dates: "15 → 21 juin",
     range: { start: "2026-06-15", end: "2026-06-21" },
-    effort: "≈ 5 h",
+    effort: "≈ 4 h 30",
     tasks: [
       {
         id: "s6-testflight",
@@ -293,7 +287,7 @@ const weeks: Week[] = [
     title: "Fin de bêta et soumission 1.1",
     dates: "22 → 28 juin",
     range: { start: "2026-06-22", end: "2026-06-28" },
-    effort: "≈ 5 h",
+    effort: "≈ 5 h 45",
     tasks: [
       {
         id: "s7-checkin",
@@ -306,9 +300,9 @@ const weeks: Week[] = [
         note: "Environ 2 h de réserve.",
       },
       {
-        id: "s7-strip-beta",
-        lead: "Retirer les chemins de code #if BETA si un échafaudage a fui.",
-        note: "Vérifier avec la commande strings.",
+        id: "s7-aso-asc",
+        lead: "Saisir la fiche ASO reconstruite dans App Store Connect pour la 1.1.",
+        note: "Environ 45 min, avant de soumettre. Nom, sous-titre, mots-clés, texte promotionnel et description depuis aso-fr-rebuild.md (FR) et la refonte EN, plus les 8 langues traduites avec DeepL. C'est la fiche sur laquelle repose le lancement promu.",
       },
       {
         id: "s7-submit",
@@ -328,7 +322,7 @@ const weeks: Week[] = [
     title: "Attente revue Apple et préparation",
     dates: "29 juin → 5 juillet",
     range: { start: "2026-06-29", end: "2026-07-05" },
-    effort: "≈ 3 h",
+    effort: "≈ 4 h 30",
     tasks: [
       {
         id: "s8-wait",
@@ -338,7 +332,12 @@ const weeks: Week[] = [
       {
         id: "s8-smoke",
         lead: "Dernier test rapide de bon fonctionnement sur la build de production.",
-        note: "Une fois la version approuvée.",
+        note: "Environ 30 min, une fois la version approuvée.",
+      },
+      {
+        id: "s8-cpp",
+        lead: "Mettre en place une page produit personnalisée dans App Store Connect.",
+        note: "Environ 90 min. Une page alternative ciblant le groupe de mots-clés FR autour des consoles portables rétro. À créer maintenant pour qu'elle soit en ligne avant le lancement et alimente le test A/B. Reportée depuis la semaine 4.",
       },
       {
         id: "s8-blog",
@@ -363,6 +362,11 @@ const weeks: Week[] = [
       {
         id: "s9-release",
         lead: "Jour 0 : diffuser la 1.1 manuellement dans App Store Connect.",
+      },
+      {
+        id: "s9-searchads",
+        lead: "Jours 0 et 1 : lancer la campagne diagnostique Apple Search Ads.",
+        note: "Selon Store/ASOResearch/apple-search-ads-diagnostic-spec.md. 20 à 50 €, 7 jours. Nécessite la 1.1 en ligne. Reportée depuis la semaine 2.",
       },
       {
         id: "s9-blog",
@@ -403,24 +407,24 @@ const milestones: Milestone[] = [
     intro: "Premier point de contrôle des avis et de la trajectoire ASO.",
     tasks: [
       {
+        id: "j30-searchads-review",
+        lead: "Examiner les résultats du diagnostic Apple Search Ads.",
+        note: "Reverser le rapport de termes de recherche dans le champ de mots-clés ASO. Lire le taux de conversion appui-vers-installation : sous environ 30 %, signaler la fiche produit comme un point à corriger.",
+      },
+      {
         id: "j30-count",
         lead: "Compter les avis App Store.",
-        note: "Objectif : plus de 50 dans les 30 premiers jours après le lancement de la 1.1.",
+        note: "Objectif : 25 avis dans les 30 premiers jours. Dépend des installations ; les leviers contrôlables sont la conversion de l'invitation à l'avis et la réponse à 100 % des avis sous 24 h.",
       },
       {
         id: "j30-low",
-        lead: "Si moins de 30 : enquêter sur l'entonnoir d'invitation à l'avis.",
+        lead: "Si moins de 15 : enquêter sur l'entonnoir d'invitation et d'installation.",
         note: "Ajuster la logique de déclenchement.",
       },
       {
         id: "j30-high",
-        lead: "Si plus de 50 : la trajectoire de classement ASO est verrouillée.",
+        lead: "Si 25 ou plus : la trajectoire de classement ASO est en bonne voie.",
         note: "Maintenir la cadence.",
-      },
-      {
-        id: "j30-delta",
-        lead: "Décider de livrer l'import de sauvegarde depuis Delta en 1.1.1.",
-        note: "S'il a été repoussé de la 1.1.",
       },
       {
         id: "j30-update",
@@ -435,20 +439,15 @@ const milestones: Milestone[] = [
     title: "Revue à 90 jours après le lancement",
     intro: "Bilan stratégique sur données de conversion réelles.",
     tasks: [
-      { id: "j90-reviews", lead: "Objectif cumulé d'avis : plus de 200." },
+      { id: "j90-reviews", lead: "Objectif cumulé d'avis : 80." },
       {
         id: "j90-rank",
-        lead: "Classement App Store FR pour « émulateur GBA » : top 3.",
+        lead: "Classement App Store FR pour « émulateur GBA » : top 10 (top 3 visé).",
       },
       {
         id: "j90-reassess",
         lead: "Réévaluer l'approche D par rapport aux alternatives.",
         note: "Sur la base des données de conversion réelles.",
-      },
-      {
-        id: "j90-searchads",
-        lead: "Refaire le point Search Ads à 90 jours.",
-        note: "Si le diagnostic de la semaine 2 a donné un CPI supérieur à 3 € et que le plan a été revu.",
       },
     ],
   },
@@ -474,6 +473,8 @@ const rotation = [
 ];
 
 const notInPlan = [
+  "Ne pas mettre la fonctionnalité de traduction dans la 1.1. C'est la fonctionnalité phare prévue pour la 1.2 : l'inclure conditionnerait le lancement à une fonctionnalité à moitié construite et retarderait le retour du marché.",
+  "Ne pas importer les sauvegardes d'état dans la 1.1. Uniquement les sauvegardes de batterie (.sav et .srm). Les conteneurs de sauvegarde d'état sont reportés.",
   "Ne pas démarcher la presse. Voie (ii) choisie : réinvestir les heures dans du travail à effet cumulatif.",
   "Ne pas publier d'annonces de lancement sur Reddit. Les comptes de marque y sont bannis automatiquement.",
   "Ne pas écrire de contenu SEO « Retro Pal contre Manic ». Effet Streisand.",
@@ -483,6 +484,34 @@ const notInPlan = [
   "Ne pas livrer de popup de retour au premier lancement. Risque de rejet Apple.",
   "Ne pas promouvoir la 1.0. La 1.1 est le lancement.",
 ];
+
+// Estimated effort per task, in minutes. Drives the "hours before launch"
+// counter (the sum of unchecked pre-launch tasks, weeks S0-S8) and the
+// per-task chips. Tasks with 0 (waiting / ongoing) show no chip.
+const estimates: Record<string, number> = {
+  "s0-icloud": 60, "s0-manic-sav": 30, "s0-cpi": 15, "s0-testplan": 30,
+  "s1-asc-manual": 5, "s1-zoho": 30, "s1-reddit": 5, "s1-manic-format": 120, "s1-aso-research": 120,
+  "s2-appname": 30, "s2-testtarget": 60, "s2-prompttracker": 30, "s2-controller": 180, "s2-aso-fr": 120, "s2-searchads": 30,
+  "s3-savestate": 180, "s3-controller-tests": 45, "s3-aso-en": 60,
+  "s4-icloud": 300,
+  "s5-manic-import": 180, "s5-prompttracker-engaged": 60, "s5-unittests": 120, "s5-folium": 90, "s5-deepl": 30,
+  "s6-testflight": 30, "s6-invite": 30, "s6-review-templates": 60, "s6-featuring": 60, "s6-p0": 90,
+  "s7-checkin": 120, "s7-p1": 120, "s7-aso-asc": 45, "s7-submit": 30, "s7-day0": 30,
+  "s8-wait": 0, "s8-smoke": 30, "s8-cpp": 90, "s8-blog": 120, "s8-bluesky": 30,
+  "s9-release": 10, "s9-searchads": 15, "s9-blog": 15, "s9-social": 15, "s9-monitor": 0, "s9-seo": 210,
+  "j30-searchads-review": 30, "j30-count": 15, "j30-low": 0, "j30-high": 0, "j30-update": 15,
+  "j90-reviews": 0, "j90-rank": 0, "j90-reassess": 0,
+};
+
+// Format minutes as a short FR label: 180 -> "3 h", 90 -> "1 h 30", 45 -> "45 min".
+function fmtEst(min: number): string {
+  if (!min || min <= 0) return "";
+  const h = Math.floor(min / 60);
+  const m = min % 60;
+  if (h && m) return `${h} h ${m < 10 ? "0" + m : m}`;
+  if (h) return `${h} h`;
+  return `${m} min`;
+}
 
 const allTasks = [...weeks, ...milestones].flatMap((s) => s.tasks);
 const totalTasks = allTasks.length;
@@ -531,8 +560,8 @@ const doneAtBuild = allTasks.filter((t) => t.done).length;
           <span class="stat-v" id="currentWeek">—</span>
         </div>
         <div class="stat">
-          <span class="stat-k">Lancement</span>
-          <span class="stat-v" id="countdown">—</span>
+          <span class="stat-k">Travail avant lancement</span>
+          <span class="stat-v" id="remaining">—</span>
         </div>
         <div class="stat">
           <span class="stat-k">Budget</span>
@@ -631,11 +660,17 @@ const doneAtBuild = allTasks.filter((t) => t.done).length;
                         type="checkbox"
                         class="task-input"
                         data-task={t.id}
+                        data-est={estimates[t.id] ?? 0}
                         checked={t.done}
                       />
                       <span class="task-box" aria-hidden="true" />
                       <span class="task-text">
-                        <span class="task-lead">{t.lead}</span>
+                        <span class="task-lead">
+                          {t.lead}
+                          {fmtEst(estimates[t.id] ?? 0) && (
+                            <span class="task-est">{fmtEst(estimates[t.id] ?? 0)}</span>
+                          )}
+                        </span>
                         {t.note && <span class="task-note">{t.note}</span>}
                       </span>
                     </label>
@@ -675,11 +710,17 @@ const doneAtBuild = allTasks.filter((t) => t.done).length;
                           type="checkbox"
                           class="task-input"
                           data-task={t.id}
+                          data-est={estimates[t.id] ?? 0}
                           checked={t.done}
                         />
                         <span class="task-box" aria-hidden="true" />
                         <span class="task-text">
-                          <span class="task-lead">{t.lead}</span>
+                          <span class="task-lead">
+                            {t.lead}
+                            {fmtEst(estimates[t.id] ?? 0) && (
+                              <span class="task-est">{fmtEst(estimates[t.id] ?? 0)}</span>
+                            )}
+                          </span>
                           {t.note && <span class="task-note">{t.note}</span>}
                         </span>
                       </label>
@@ -1548,12 +1589,30 @@ const doneAtBuild = allTasks.filter((t) => t.done).length;
       padding-inline: 0.15rem;
     }
   }
+
+  /* ---------- Task estimate chip ---------- */
+  .task-est {
+    display: inline-block;
+    margin-left: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent-dk);
+    background: var(--paper-deep);
+    border: 1px solid var(--rule);
+    padding: 0.05rem 0.4rem;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+  .task-input:checked ~ .task-text .task-est {
+    opacity: 0.5;
+  }
 </style>
 
 <script>
   // ---- Self-persisting checklist (localStorage, per browser) ----
   const KEY = "retropal-todo-v1";
-  const LAUNCH = new Date("2026-07-06T00:00:00");
 
   type State = Record<string, boolean>;
 
@@ -1629,6 +1688,7 @@ const doneAtBuild = allTasks.filter((t) => t.done).length;
       });
 
     markCurrentWeek();
+    showRemaining();
   }
 
   for (const box of boxes) {
@@ -1670,17 +1730,27 @@ const doneAtBuild = allTasks.filter((t) => t.done).length;
     label.textContent = name.length > 22 ? name.slice(0, 21) + "…" : name;
   }
 
-  function showCountdown() {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const days = Math.round(
-      (LAUNCH.getTime() - today.getTime()) / 86_400_000,
-    );
-    const el = document.getElementById("countdown")!;
-    if (days > 1) el.textContent = "J−" + days;
-    else if (days === 1) el.textContent = "Demain";
-    else if (days === 0) el.textContent = "Jour J";
-    else el.textContent = "Lancé";
+  // ---- Hours of work remaining before launch ----
+  // Sums the estimate (data-est, in minutes) of every UNCHECKED task in the
+  // pre-launch weeks S0 to S8. Launch week S9 and the post-launch milestones
+  // (J30, J90) do not count. The number goes down as boxes are ticked.
+  function showRemaining() {
+    let mins = 0;
+    for (const box of boxes) {
+      if (box.checked) continue;
+      const section = box.closest<HTMLElement>("[data-week]");
+      const code = section?.dataset.week ?? "";
+      if (!/^S[0-8]$/.test(code)) continue;
+      mins += Number(box.dataset.est || 0);
+    }
+    const el = document.getElementById("remaining")!;
+    if (mins <= 0) {
+      el.textContent = "0 h";
+      return;
+    }
+    const h = Math.floor(mins / 60);
+    const m = mins % 60;
+    el.textContent = m ? `${h} h ${m < 10 ? "0" + m : m}` : `${h} h`;
   }
 
   // ---- Reset ----
@@ -1692,6 +1762,5 @@ const doneAtBuild = allTasks.filter((t) => t.done).length;
     refresh();
   });
 
-  showCountdown();
   refresh();
 </script>
