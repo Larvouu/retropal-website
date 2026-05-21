@@ -182,16 +182,19 @@ const weeks: Week[] = [
     tasks: [
       {
         id: "s3-savestate",
+        done: true,
         lead: "Refactoriser SaveStateManager autour de NSFileCoordinator.",
         note: "Environ 3 h, prérequis du Chantier C. Chaque lecture et écriture devient coordonnée. Infrastructure nécessaire pour la synchronisation iCloud.",
       },
       {
         id: "s3-controller-tests",
+        done: true,
         lead: "Implémenter les tests unitaires de ControllerManager.",
         note: "Environ 45 min, Chantier B. 3 tests : couverture du mappage, appui simultané, la déconnexion vide les boutons maintenus.",
       },
       {
         id: "s3-aso-en",
+        done: true,
         lead: "Refonte ASO EN.",
         note: "Environ 1 h. Traduire le message différenciant depuis le master FR. Rechercher les termes de trafic EN.",
       },
@@ -207,6 +210,7 @@ const weeks: Week[] = [
     tasks: [
       {
         id: "s4-icloud",
+        done: true,
         lead: "Implémenter iCloudSaveSync au-dessus du SaveStateManager refactorisé.",
         note: "Environ 5 h, Chantier C. Présentateur NSFilePresenter de longue durée. Résolution de conflit « la date la plus récente gagne ». Bascule silencieuse en local seul si iCloud est indisponible. Exposer l'état dans les Réglages.",
       },
@@ -222,18 +226,21 @@ const weeks: Week[] = [
     tasks: [
       {
         id: "s5-manic-import",
+        done: true,
         lead: "Implémenter l'import des sauvegardes de batterie (.sav et .srm).",
         note: "Environ 3 h, Chantier C. Ces fichiers sont de la RAM de sauvegarde brute, indépendants de l'émulateur : le même import fonctionne pour Manic, Delta, OpenEmu, RetroArch et d'autres. Router par taille, extension et signature. Rejeter les ROM et les sauvegardes d'état avec une erreur claire en français. Les sauvegardes d'état restent hors périmètre de la 1.1.",
       },
       {
         id: "s5-prompttracker-engaged",
+        done: true,
         lead: "Ajouter le parcours engagedFirstTimer à PromptTracker.",
         note: "Environ 1 h, Chantier A. Nouveau déclencheur : première session, plus 15 min, plus 1 sauvegarde d'état créée.",
       },
       {
         id: "s5-unittests",
-        lead: "Écrire les tests unitaires : 6 pour PromptTracker, 6 pour ManicSaveImporter.",
-        note: "Environ 2 h. Couverture de régression selon la règle d'or sur PromptTracker.",
+        done: true,
+        lead: "Écrire les tests unitaires : 6 pour BatterySaveImporter, 7 pour PromptTracker.",
+        note: "Environ 2 h. Couverture de régression selon la règle d'or sur PromptTracker. BatterySaveImporter remplace l'ancien nom ManicSaveImporter (import indépendant de l'émulateur).",
       },
       {
         id: "s5-folium",
